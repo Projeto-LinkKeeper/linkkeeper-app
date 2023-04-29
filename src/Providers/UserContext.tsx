@@ -2,7 +2,7 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { TLoginFormValues } from "../components/LoginForm/schema";
+import { TLoginFormValues } from "../Components/LoginForm/schema";
 import { api } from "../Services/api";
 
 interface IUserProviderProps {

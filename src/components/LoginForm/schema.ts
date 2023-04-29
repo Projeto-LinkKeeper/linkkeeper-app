@@ -8,9 +8,5 @@ export const schema = z.object({
   password: z
     .string()
     .min(1, "Verifique sua senha!")
-    .regex(/(?=.*?[A-Z])/, "Verifique sua senha!")
-    .regex(/(?=.*?[a-z])/, "Verifique sua senha!")
-    .regex(/(?=.*?[0-9])/, "Verifique sua senha!")
-    .regex(/[^0-9A-Za-z]*/, "Verifique sua senha!"),
 });
 export type TLoginFormValues = z.infer<typeof schema>;
