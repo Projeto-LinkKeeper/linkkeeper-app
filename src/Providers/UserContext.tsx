@@ -19,6 +19,7 @@ interface IUserContext {
     formData: IResgisterFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
+  userLogout: () => void,
   user: IUser | null;
 }
 
@@ -121,6 +122,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
         userLogin,
         user,
         userRegister,
+        userLogout 
       }}
     >
       {children}
