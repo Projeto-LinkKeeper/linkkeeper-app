@@ -13,8 +13,8 @@ export const buttonStyles = css<IStyledButtonProps>`
 
   font-size: 1rem;
 
-  ${({ backgroundColor }) => {
-    switch (backgroundColor) {
+  ${({ $backgroundColor }) => {
+    switch ($backgroundColor) {
       case "primary":
         return css`
           background-color: var(--color-primary);

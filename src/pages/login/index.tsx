@@ -1,13 +1,13 @@
-import { LoginForm } from "../../components/LoginForm"
-import logo from "../../assets/logo.svg"
+import { LoginForm } from "../../components/LoginForm";
+import { Header } from "../../components/Header";
 
 export const LoginPage = () => {
-    return (
-        <main>
-            <div>
-            <img src={logo} alt="logo" />
-            <LoginForm/>
-            </div>
-        </main> 
-    )
-}
+  return (
+    <main>
+      <div>
+        <Header />
+        <LoginForm />
+      </div>
+    </main>
+  );
+};

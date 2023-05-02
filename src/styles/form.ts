@@ -22,4 +22,29 @@ export const StyledFormContainer = styled.form`
   h3 {
     align-self: center;
   }
+
+  span {
+    align-self: center;
+    color: var(--grey-1);
+    font-size: 14px;
+  }
+
+  .registerLink {
+    text-decoration: none;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 48px;
+    width: 100%;
+
+    border-radius: 4px;
+    padding: 0px 22px;
+
+    font-size: 1rem;
+
+    border: solid 1px var(--grey-0);
+    color: var(--grey-0);
+  }
 `;

@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Input } from "../inputs";
+import { Input } from "../Input";
 import { useContext, useState } from "react";
 import { UserContext } from "../../Providers/UserContext";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -75,7 +75,7 @@ export const RegisterForm = () => {
         />
 
         <StyledSubmitButton
-          backgroundColor={loading ? "disabled" : "primary"}
+          $backgroundColor={loading ? "disabled" : "primary"}
           type="submit"
           disabled={loading}
         >
