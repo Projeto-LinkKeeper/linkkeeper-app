@@ -1,11 +1,14 @@
-import { RoutesMain } from "./routes/RoutesMain";
-import { GlobalStyles } from "./styles/GlobalStyles";
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
+
 
 export const App = () => {
-  return (
+  return(
     <>
-      <GlobalStyles />
-      <RoutesMain />
     </>
-  );
-};
+  )
+}
+
+
