@@ -5,7 +5,7 @@ import { StyledModal } from "./style";
 import { Input } from "../../Input";
 import { StyledSubmitButton } from "../../../styles/button";
 
-export const AddNewLinkModal = () => {
+export const AddNewLinkModal = ({ isModalOpen, setIsModalOpen }) => {
   const {
     register,
     handleSubmit,
@@ -13,7 +13,7 @@ export const AddNewLinkModal = () => {
   } = useForm();
 
   const [loading, setLoading] = useState(false);
-  const { isModalOpen, setIsModalOpen, newLink } = useContext(LinkContext);
+  const { newLink } = useContext(LinkContext);
 
   const submit = (formData) => {
     newLink(formData);

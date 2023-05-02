@@ -3,19 +3,24 @@ import listIcon from "../../assets/listIcon.svg";
 import gridIcon from "../../assets/gridIcon.svg";
 import Image from "../../assets/image 1.svg";
 import { StyledCardList, StyledGridControls, StyledUlList } from "./styleList";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { StyledCardGrid, StyledUlGrid } from "./styleGrid";
 import { AddNewLinkModal } from "../../components/Modals/AddLinkModal/AddLinkModal";
-import { LinkContext } from "../../Providers/LinkContext";
 
 export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
-  const { setIsModalOpen } = useContext(LinkContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  console.log(isModalOpen);
 
   return (
     <>
       <main>
         <div>
+          <AddNewLinkModal
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+          />
           <Header />
           <main>
             <StyledGridControls>
@@ -119,7 +124,6 @@ export const DashboardPage = () => {
           </main>
         </div>
       </main>
-      <AddNewLinkModal />
     </>
   );
 };

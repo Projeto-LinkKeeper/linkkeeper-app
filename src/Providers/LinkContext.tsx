@@ -20,15 +20,12 @@ interface ILinkContext {
   getUserLinks: () => Promise<void>;
   newLink: (formData) => Promise<void>;
   deleteLink: (linkId: number) => Promise<void>;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const LinkContext = createContext({} as ILinkContext);
 
 export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const [listLinks, setListLinks] = useState<ILink[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getLinks = async () => {
     const token = localStorage.getItem("@TOKEN");
@@ -90,8 +87,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         setListLinks,
         deleteLink,
         newLink,
-        isModalOpen,
-        setIsModalOpen,
       }}
     >
       {children}
