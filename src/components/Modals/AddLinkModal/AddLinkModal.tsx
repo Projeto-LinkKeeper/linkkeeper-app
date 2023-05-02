@@ -4,18 +4,22 @@ import { LinkContext } from "../../../Providers/LinkContext";
 import { StyledModal } from "./style";
 import { Input } from "../../Input";
 import { StyledSubmitButton } from "../../../styles/button";
+import { LinkSchema, TLinkFormValues } from "./LinkSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export const AddNewLinkModal = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<TLinkFormValues>({
+    resolver: zodResolver(LinkSchema)    
+  });
 
   const [loading, setLoading] = useState(false);
   const { isModalOpen, setIsModalOpen, newLink } = useContext(LinkContext);
 
-  const submit = (formData) => {
+  const submit = (formData: TLinkFormValues) => {
     newLink(formData);
   };
 
@@ -54,9 +58,9 @@ export const AddNewLinkModal = () => {
               <Input
                 type="text"
                 label="Url da imagem"
-                id="imgUrl"
+                id="img"
                 placeholder="Ex: https://imagem/img2.png"
-                {...register("imgUrl")}
+                {...register("img")}
                 disabled={loading}
               />
               <select name="Categorias" id="category">
@@ -67,7 +71,7 @@ export const AddNewLinkModal = () => {
                 <option value="figma">Figmas</option>
                 <option value="documents">Documentos</option>
               </select>
-              <textarea name="" id="" cols="30" rows="10"></textarea>
+              <textarea name="" id="" cols={30} rows={10}></textarea>
               <StyledSubmitButton
                 $backgroundColor={loading ? "disabled" : "primary"}
                 type="submit"

@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { api } from "../Services/api";
 import { toast } from "react-toastify";
+import { TLinkFormValues } from "../components/Modals/AddLinkModal/LinkSchema";
 
 interface ILinkProviderProps {
   children: React.ReactNode;
@@ -17,11 +18,10 @@ export interface ILink {
 
 interface ILinkContext {
   listLinks: ILink[];
-  getUserLinks: () => Promise<void>;
-  newLink: (formData) => Promise<void>;
+  newLink: (formData: TLinkFormValues) => Promise<void>;
   deleteLink: (linkId: number) => Promise<void>;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isModalOpen: boolean;
 }
 
 export const LinkContext = createContext({} as ILinkContext);
@@ -68,7 +68,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     }
   };
 
-  const newLink = async (formData) => {
+  const newLink = async (formData: TLinkFormValues) => {
     const token = localStorage.getItem("@TOKEN");
     try {
       const { data } = await api.post("/links", formData, {
@@ -87,7 +87,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     <LinkContext.Provider
       value={{
         listLinks,
-        setListLinks,
         deleteLink,
         newLink,
         isModalOpen,
