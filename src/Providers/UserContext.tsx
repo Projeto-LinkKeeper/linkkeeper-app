@@ -19,7 +19,6 @@ interface IUserContext {
     formData: IResgisterFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
-  userLogout: () => void,
   user: IUser | null;
 }
 
@@ -87,6 +86,7 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
       });
       navigate("/home");
     } catch (error) {
+      console.log(error);
       toast.error("Ops, algo deu errado!", { autoClose: 2000 });
     } finally {
       setLoading(false);
@@ -110,23 +110,15 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
     }
   };
 
-  const userLogout = () => {
-    localStorage.removeItem("@TOKEN");
-    localStorage.removeItem("@USERID");
-    navigate("/");
-  };
-
   return (
     <UserContext.Provider
       value={{
         userLogin,
         user,
         userRegister,
-        userLogout 
       }}
     >
       {children}
     </UserContext.Provider>
   );
 };
-
