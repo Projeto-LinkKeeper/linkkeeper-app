@@ -29,3 +29,8 @@ export const StyledCardGrid = styled.li`
     color: var(--grey-0);
   }
 `;
+
+export const StyledFilter = styled.div`
+  button{
+    background-color: red;
+  }`

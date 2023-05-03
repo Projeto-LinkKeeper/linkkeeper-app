@@ -6,11 +6,12 @@ import { useContext, useState } from "react";
 import { StyledCardGrid, StyledUlGrid } from "./styleGrid";
 import { AddNewLinkModal } from "../../components/Modals/AddLinkModal/AddLinkModal";
 import { LinkContext } from "../../Providers/LinkContext";
+import { StyledFilter } from "./styleGrid";
 
 export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { listLinks, listCategories } = useContext(LinkContext);
+  const { listLinks, listCategories, setListLinks, filterLinks } = useContext(LinkContext);
 
   return (
     <>
@@ -22,11 +23,12 @@ export const DashboardPage = () => {
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
             />
-            <div>
+            <StyledFilter>
               {listCategories.map((currentCategory =>
-                <button>{currentCategory}</button>
+                <button className="filter" onClick={() => { filterLinks(currentCategory)}
+              }>{currentCategory}</button>
               ))}
-            </div>
+            </StyledFilter>
             <StyledGridControls>
               <h3>Vídeos</h3>
               <button onClick={() => setIsModalOpen(true)}>add link</button>

@@ -15,6 +15,7 @@ export interface ILink {
   img: string;
   comments: string;
   userId: number;
+  category: string;
 }
 
 interface IUser {
@@ -34,6 +35,8 @@ interface ILinkContext {
   ) => Promise<void>;
   deleteLink: (linkId: number) => Promise<void>;
   listCategories: string[];
+  setListLinks: React.Dispatch<React.SetStateAction<ILink[]>>;
+  filterLinks: (category: string) => Promise<void>;
 }
 
 export const LinkContext = createContext({} as ILinkContext);
@@ -60,16 +63,31 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       });
 
       setListLinks(response.data.links);
-
+      const categories = response.data.links.map(currentLink => {
+        return currentLink.category
+      })
+      setListCategories(categories)
+      return(response.data.links)
     } catch (error) {
 
       toast.error("Algo deu errado");
     }
   };
 
+  console.log(listCategories)
   useEffect(() => {
     getLinks();
   }, []);
+
+
+
+  const filterLinks = async (category: string) => {
+    const listLinks = await getLinks(); 
+    const newListLinks = listLinks!.filter(currentLink => {
+      return currentLink.category === category;
+    })
+    setListLinks(newListLinks);
+  }
 
   const deleteLink = async (linkId: number) => {
     const token = localStorage.getItem("@TOKEN");
@@ -125,7 +143,8 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         deleteLink,
         newLink,
         listCategories,
-
+        setListLinks,
+        filterLinks,
       }}
     >
       {children}
