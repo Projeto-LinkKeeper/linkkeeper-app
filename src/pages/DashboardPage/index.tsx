@@ -11,7 +11,7 @@ import { StyledFilter } from "./styleGrid";
 export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { listLinks, listCategories, setListLinks, filterLinks } = useContext(LinkContext);
+  const { listLinks, listCategories, deleteLink, filterLinks } = useContext(LinkContext);
 
   return (
     <>
@@ -56,7 +56,7 @@ export const DashboardPage = () => {
                           <h3>{link.title}</h3>
                           <h3>Comentários</h3>
                           <p>{link.comments}</p>
-                          <button>Remover link</button>
+                          <button onClick={() => deleteLink(link.id)}>Remover link</button>
                         </div>
                       </StyledCardList>
                     );
@@ -122,7 +122,7 @@ export const DashboardPage = () => {
                         <h3>{link.title}</h3>
                         <h3>Comentários</h3>
                         <p>{link.comments}</p>
-                        <button>Remover link</button>
+                        <button onClick={()=> deleteLink(link.id)}>Remover link</button>
                       </div>
                     </StyledCardGrid>
                   );
