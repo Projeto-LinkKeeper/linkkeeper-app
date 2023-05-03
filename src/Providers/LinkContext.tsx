@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { api } from "../Services/api";
 import { toast } from "react-toastify";
 import { TLinkFormValues } from "../components/Modals/AddLinkModal/LinkSchema";
+import { ILinkModalData } from "../components/Modals/AddLinkModal/AddLinkModal";
 
 interface ILinkProviderProps {
   children: React.ReactNode;
@@ -18,7 +19,10 @@ export interface ILink {
 
 interface ILinkContext {
   listLinks: ILink[];
-  newLink: (formData: TLinkFormValues) => Promise<void>;
+  newLink: (
+    formData: ILinkModalData,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => Promise<void>;
   deleteLink: (linkId: number) => Promise<void>;
 }
 
@@ -69,7 +73,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
   };
 
   const newLink = async (
-    formData: TLinkFormValues,
+    formData: ILinkModalData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     const token = localStorage.getItem("@TOKEN");
