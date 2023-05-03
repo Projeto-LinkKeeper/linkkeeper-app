@@ -28,80 +28,80 @@ export const AddNewLinkModal = ({
   const { newLink } = useContext(LinkContext);
 
   const submit: SubmitHandler<TLinkFormValues> = (formData) => {
-    console.log(formData);
     newLink(formData, setLoading);
-    console.log(formData);
   };
 
-  if (isModalOpen) {
-    return (
-      <StyledModal>
-        <div className="modal__container">
-          <div className="header__modal">
-            <h3>Adicionar Link</h3>
-            <button
-              className="modalCloseBtn"
-              onClick={() => setIsModalOpen(false)}
-            >
-              X
-            </button>
-          </div>
-
-          <div className="body__modal">
-            <form className="form__modal" onSubmit={handleSubmit(submit)}>
-              <Input
-                type="text"
-                label="Título"
-                id="title"
-                placeholder="Título do link"
-                error={errors.title?.message}
-                {...register("title")}
-                disabled={loading}
-              />
-              <Input
-                type="text"
-                label="Link"
-                id="link"
-                placeholder="Ex: https://link.com"
-                error={errors.link?.message}
-                {...register("link")}
-                disabled={loading}
-              />
-              <Input
-                type="text"
-                label="Url da imagem"
-                id="img"
-                placeholder="Ex: https://imagem/img2.png"
-                error={errors.img?.message}
-                {...register("img")}
-                disabled={loading}
-              />
-              <select id="category" {...register("category")}>
-                <option value="">Seleciona uma opção de categoria</option>
-                <option value="books">Livros</option>
-                <option value="video">Vídeo</option>
-                <option value="music">Música</option>
-                <option value="series">Séries</option>
-                <option value="recipes">Receitas</option>
-                <option value="others">Outra</option>
-              </select>
-              <textarea
-                id="comments"
-                cols={30}
-                rows={10}
-                {...register("comments")}
-              ></textarea>
-              <StyledSubmitButton
-                $backgroundColor={loading ? "disabled" : "primary"}
-                type="submit"
-                disabled={loading}
+  return (
+    <>
+      {isModalOpen && (
+        <StyledModal>
+          <div className="modal__container">
+            <div className="header__modal">
+              <h3>Adicionar Link</h3>
+              <button
+                className="modalCloseBtn"
+                onClick={() => setIsModalOpen(false)}
               >
-                {loading ? "Adicionando link..." : "Adicionar Link"}
-              </StyledSubmitButton>
-            </form>
+                X
+              </button>
+            </div>
+
+            <div className="body__modal">
+              <form className="form__modal" onSubmit={handleSubmit(submit)}>
+                <Input
+                  type="text"
+                  label="Título"
+                  id="title"
+                  placeholder="Título do link"
+                  error={errors.title?.message}
+                  {...register("title")}
+                  disabled={loading}
+                />
+                <Input
+                  type="text"
+                  label="Link"
+                  id="link"
+                  placeholder="Ex: https://link.com"
+                  error={errors.link?.message}
+                  {...register("link")}
+                  disabled={loading}
+                />
+                <Input
+                  type="text"
+                  label="Url da imagem"
+                  id="img"
+                  placeholder="Ex: https://imagem/img2.png"
+                  error={errors.img?.message}
+                  {...register("img")}
+                  disabled={loading}
+                />
+                <select id="category" {...register("category")}>
+                  <option value="">Seleciona uma opção de categoria</option>
+                  <option value="books">Livros</option>
+                  <option value="video">Vídeo</option>
+                  <option value="music">Música</option>
+                  <option value="series">Séries</option>
+                  <option value="recipes">Receitas</option>
+                  <option value="others">Outra</option>
+                </select>
+                <textarea
+                  id="comments"
+                  cols={30}
+                  rows={10}
+                  {...register("comments")}
+                ></textarea>
+                <StyledSubmitButton
+                  $backgroundColor={loading ? "disabled" : "primary"}
+                  type="submit"
+                  disabled={loading}
+                >
+                  {loading ? "Adicionando link..." : "Adicionar Link"}
+                </StyledSubmitButton>
+              </form>
+            </div>
           </div>
-        </div>
-      </StyledModal>
-    );
-  }
+        </StyledModal>
+      )}
+    </>
+  );
 };
