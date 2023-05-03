@@ -1,17 +1,17 @@
 import { Header } from "../../components/Header";
 import listIcon from "../../assets/listIcon.svg";
 import gridIcon from "../../assets/gridIcon.svg";
-import Image from "../../assets/image 1.svg";
 import { StyledCardList, StyledGridControls, StyledUlList } from "./styleList";
 import { useContext, useState } from "react";
 import { StyledCardGrid, StyledUlGrid } from "./styleGrid";
 import { AddNewLinkModal } from "../../components/Modals/AddLinkModal/AddLinkModal";
 import { LinkContext } from "../../Providers/LinkContext";
+import { StyledFilter } from "./styleGrid";
 
 export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { listLinks, listCategories } = useContext(LinkContext);
+  const { listLinks, listCategories, deleteLink } = useContext(LinkContext);
 
   console.log(listCategories);
   console.log(listLinks);
@@ -49,16 +49,19 @@ export const DashboardPage = () => {
               <div>
                 <StyledUlList>
                   {listLinks.map((link) => {
-                    console.log(link);
-
                     return (
-                      <StyledCardList>
-                        <img src={link.img} alt="" />
+                      <StyledCardList key={link.id}>
+                        <div>
+                          <img src={link.img} alt="" />
+                        </div>
                         <div>
                           <h3>{link.title}</h3>
+                          <a href={link.link}>{link.link}</a>
                           <h3>Comentários</h3>
                           <p>{link.comments}</p>
-                          <button>Remover link</button>
+                          <button onClick={() => deleteLink(link.id)}>
+                            Remover link
+                          </button>
                         </div>
                       </StyledCardList>
                     );
@@ -68,16 +71,17 @@ export const DashboardPage = () => {
             ) : (
               <StyledUlGrid>
                 {listLinks.map((link) => {
-                  console.log(link);
-
                   return (
                     <StyledCardGrid>
                       <img src={link.img} alt="" />
                       <div>
                         <h3>{link.title}</h3>
+                        <a href={link.link}>{link.link}</a>
                         <h3>Comentários</h3>
                         <p>{link.comments}</p>
-                        <button>Remover link</button>
+                        <button onClick={() => deleteLink(link.id)}>
+                          Remover link
+                        </button>
                       </div>
                     </StyledCardGrid>
                   );
