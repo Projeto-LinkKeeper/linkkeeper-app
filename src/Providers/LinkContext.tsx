@@ -16,7 +16,6 @@ export interface ILink {
   comments: string;
   userId: number;
   category: string;
-  category: string;
 }
 
 interface IUser {
