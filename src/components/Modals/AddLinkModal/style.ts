@@ -12,4 +12,8 @@ export const StyledModal = styled.div`
   bottom: 0;
 
   background-color: rgba(18, 18, 20, 0.5);
+
+  .modal__container {
+    background-color: white;
+  }
 `;
