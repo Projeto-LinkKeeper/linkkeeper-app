@@ -31,8 +31,8 @@ export const Header = () => {
       {location.pathname === "/home" ? (
         <div className="homeHeader">
           <img src={Logotipo} alt="Logotipo" />
-          <span>Home</span>
-          <span>Buscar</span>
+          <p className="paragraph">Home</p>
+          <p className="paragraph">Buscar</p>
           <img src={ProfileIcon}/>
           <p className="paragraph">Bem vindo, {user.name}</p>
           <button className="logoutBtn" onClick={userLogout}>
