@@ -15,6 +15,7 @@ export interface ILink {
   img: string;
   comments: string;
   userId: number;
+  category: string;
 }
 
 interface IUser {
@@ -33,6 +34,8 @@ interface ILinkContext {
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
   deleteLink: (linkId: number) => Promise<void>;
+  listCategories: string[];
+  setListLinks: React.Dispatch<React.SetStateAction<ILink[]>>;
 }
 
 export const LinkContext = createContext({} as ILinkContext);

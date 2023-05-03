@@ -11,7 +11,7 @@ import { LinkContext } from "../../Providers/LinkContext";
 export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { listLinks, listCategories } = useContext(LinkContext);
+  const { listLinks, listCategories, setListLinks } = useContext(LinkContext);
 
 
   console.log(listCategories)
@@ -29,7 +29,9 @@ export const DashboardPage = () => {
             />
             <div>
               {listCategories.map((currentCategory =>
-                <button>{currentCategory}</button>
+                <button onClick={() => {const newLinksList = listLinks.filter((currentLink =>
+                  currentLink.category === currentCategory))
+                  setListLinks(newLinksList)}}>{currentCategory}</button>
                 ))}
             </div>
             <StyledGridControls>
