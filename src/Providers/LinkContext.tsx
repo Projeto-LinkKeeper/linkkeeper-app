@@ -68,9 +68,13 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     }
   };
 
-  const newLink = async (formData: TLinkFormValues) => {
+  const newLink = async (
+    formData: TLinkFormValues,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
     const token = localStorage.getItem("@TOKEN");
     try {
+      setLoading(true);
       const { data } = await api.post("/links", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -81,6 +85,8 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Algo deu errado");
+    } finally {
+      setLoading(false);
     }
   };
 

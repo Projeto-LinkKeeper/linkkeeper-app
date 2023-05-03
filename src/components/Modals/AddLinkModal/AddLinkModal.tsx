@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { LinkContext } from "../../../Providers/LinkContext";
 import { StyledModal } from "./style";
 import { Input } from "../../Input";
@@ -19,8 +19,9 @@ export const AddNewLinkModal = ({ isModalOpen, setIsModalOpen }) => {
   const [loading, setLoading] = useState(false);
   const { newLink } = useContext(LinkContext);
 
-  const submit = (formData: TLinkFormValues) => {
-    newLink(formData);
+  const submit: SubmitHandler<TLinkFormValues> = (formData) => {
+    newLink(formData, setLoading);
+    console.log(formData);
   };
 
   if (isModalOpen) {
