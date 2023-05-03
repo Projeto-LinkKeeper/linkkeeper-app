@@ -54,4 +54,9 @@ export const StyledHeader = styled.header`
 
     background-color: var(--grey-3);
   }
+
+  .paragraph{
+    color: var(--color-primary);
+    font-family: 'Noah', sans-serif;
+  }
 `;

@@ -1,11 +1,16 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logotipo from "../../assets/logo.svg";
+import ProfileIcon from "../../assets/profile-icon.png"
 import { StyledHeader } from "./style";
+import { useContext } from 'react';
+import { UserContext } from '../../Providers/UserContext';
 
 export const Header = () => {
+
+  const { user } = useContext(UserContext)
   const navigate = useNavigate();
   const location = useLocation();
-
+  
   const userLogout = () => {
     localStorage.removeItem("@TOKEN");
     localStorage.removeItem("@USERID");
@@ -26,6 +31,10 @@ export const Header = () => {
       {location.pathname === "/home" ? (
         <div className="homeHeader">
           <img src={Logotipo} alt="Logotipo" />
+          <span>Home</span>
+          <span>Buscar</span>
+          <img src={ProfileIcon}/>
+          <p className="paragraph">Bem vindo, {user.name}</p>
           <button className="logoutBtn" onClick={userLogout}>
             Sair
           </button>

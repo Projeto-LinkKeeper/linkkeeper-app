@@ -44,7 +44,9 @@ interface IUserRegisterResponse {
 export const UserContext = createContext({} as IUserContext);
 
 export const UserProvider = ({ children }: IUserProviderProps) => {
+  
   const [user, setUser] = useState<IUser | null>(null);
+  
   const navigate = useNavigate();
   const token = localStorage.getItem("@TOKEN") as string;
   const userId = localStorage.getItem("@USERID") as string;
@@ -81,7 +83,6 @@ export const UserProvider = ({ children }: IUserProviderProps) => {
       const { data } = await api.post<IUserLoginResponse>("/login", formData);
       localStorage.setItem("@TOKEN", data.accessToken);
       localStorage.setItem("@USERID", data.user.id);
-
       setUser(data.user);
       toast.success("Login efetuado com sucesso!", {
         autoClose: 2000,
