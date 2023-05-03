@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { LinkContext } from "../../../Providers/LinkContext";
 import { StyledModal } from "./style";
 import { Input } from "../../Input";
@@ -7,20 +7,25 @@ import { StyledSubmitButton } from "../../../styles/button";
 import { LinkSchema, TLinkFormValues } from "./LinkSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-export const AddNewLinkModal = () => {
+export const AddNewLinkModal = ({ isModalOpen, setIsModalOpen }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TLinkFormValues>({
-    resolver: zodResolver(LinkSchema)    
+
+    resolver: zodResolver(LinkSchema),
+
   });
 
   const [loading, setLoading] = useState(false);
-  const { isModalOpen, setIsModalOpen, newLink } = useContext(LinkContext);
+  const { newLink } = useContext(LinkContext);
 
-  const submit = (formData: TLinkFormValues) => {
-    newLink(formData);
+
+  const submit: SubmitHandler<TLinkFormValues> = (formData) => {
+    newLink(formData, setLoading);
+    console.log(formData);
+
   };
 
   if (isModalOpen) {
@@ -44,6 +49,7 @@ export const AddNewLinkModal = () => {
                 label="Título"
                 id="title"
                 placeholder="Título do link"
+                error={errors.title?.message}
                 {...register("title")}
                 disabled={loading}
               />
@@ -52,6 +58,7 @@ export const AddNewLinkModal = () => {
                 label="Link"
                 id="link"
                 placeholder="Ex: https://link.com"
+                error={errors.link?.message}
                 {...register("link")}
                 disabled={loading}
               />
@@ -60,6 +67,9 @@ export const AddNewLinkModal = () => {
                 label="Url da imagem"
                 id="img"
                 placeholder="Ex: https://imagem/img2.png"
+
+                error={errors.img?.message}
+
                 {...register("img")}
                 disabled={loading}
               />

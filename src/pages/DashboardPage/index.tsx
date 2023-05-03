@@ -10,12 +10,19 @@ import { LinkContext } from "../../Providers/LinkContext";
 
 export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
-  const { setIsModalOpen } = useContext(LinkContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { listLinks } = useContext(LinkContext);
+
+  console.log(listLinks);
 
   return (
     <>
       <main>
         <div>
+          <AddNewLinkModal
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+          />
           <Header />
           <main>
             <StyledGridControls>
@@ -119,7 +126,6 @@ export const DashboardPage = () => {
           </main>
         </div>
       </main>
-      <AddNewLinkModal />
     </>
   );
 };

@@ -18,21 +18,23 @@ export interface ILink {
 
 interface ILinkContext {
   listLinks: ILink[];
-  newLink: (formData: TLinkFormValues) => Promise<void>;
+
+  newLink: (
+    formData: TLinkFormValues,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => Promise<void>;
   deleteLink: (linkId: number) => Promise<void>;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isModalOpen: boolean;
+
 }
 
 export const LinkContext = createContext({} as ILinkContext);
 
 export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const [listLinks, setListLinks] = useState<ILink[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getLinks = async () => {
     const token = localStorage.getItem("@TOKEN");
-    const userId = localStorage.getItem(JSON.parse("@USERID"));
+    const userId = localStorage.getItem("@USERID");
 
     try {
       const { data } = await api.get<ILink[]>(`/users/${userId}?_embed=links`, {
@@ -42,6 +44,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       });
       setListLinks(data);
     } catch (error) {
+      console.log(error);
       toast.error("Algo deu errado");
     }
   };
@@ -64,13 +67,21 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       setListLinks(newListLinks);
       toast.success("Link removido com sucesso!");
     } catch (error) {
+      console.log(error);
+
       toast.error("Algo deu errado!");
     }
   };
 
-  const newLink = async (formData: TLinkFormValues) => {
+
+  const newLink = async (
+    formData: TLinkFormValues,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+
     const token = localStorage.getItem("@TOKEN");
     try {
+      setLoading(true);
       const { data } = await api.post("/links", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -79,7 +90,10 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       setListLinks([...listLinks, data]);
       toast.success("Link adicionado com sucesso!");
     } catch (error) {
+      console.log(error);
       toast.error("Algo deu errado");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -89,8 +103,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         listLinks,
         deleteLink,
         newLink,
-        isModalOpen,
-        setIsModalOpen,
       }}
     >
       {children}
