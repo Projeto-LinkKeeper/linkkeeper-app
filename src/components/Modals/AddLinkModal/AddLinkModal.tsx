@@ -13,15 +13,19 @@ export const AddNewLinkModal = ({ isModalOpen, setIsModalOpen }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<TLinkFormValues>({
+
     resolver: zodResolver(LinkSchema),
+
   });
 
   const [loading, setLoading] = useState(false);
   const { newLink } = useContext(LinkContext);
 
+
   const submit: SubmitHandler<TLinkFormValues> = (formData) => {
     newLink(formData, setLoading);
     console.log(formData);
+
   };
 
   if (isModalOpen) {
@@ -63,7 +67,9 @@ export const AddNewLinkModal = ({ isModalOpen, setIsModalOpen }) => {
                 label="Url da imagem"
                 id="img"
                 placeholder="Ex: https://imagem/img2.png"
+
                 error={errors.img?.message}
+
                 {...register("img")}
                 disabled={loading}
               />
