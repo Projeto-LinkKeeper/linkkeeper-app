@@ -42,7 +42,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setListLinks(data);
+      setListLinks(data.links);
     } catch (error) {
       console.log(error);
       toast.error("Algo deu errado");
