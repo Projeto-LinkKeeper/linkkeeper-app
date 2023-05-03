@@ -18,11 +18,13 @@ export interface ILink {
 
 interface ILinkContext {
   listLinks: ILink[];
+
   newLink: (
     formData: TLinkFormValues,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
   deleteLink: (linkId: number) => Promise<void>;
+
 }
 
 export const LinkContext = createContext({} as ILinkContext);
@@ -71,10 +73,12 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     }
   };
 
+
   const newLink = async (
     formData: TLinkFormValues,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
+
     const token = localStorage.getItem("@TOKEN");
     try {
       setLoading(true);

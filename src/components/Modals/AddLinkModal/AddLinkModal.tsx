@@ -30,6 +30,7 @@ export const AddNewLinkModal = ({
   const submit: SubmitHandler<TLinkFormValues> = (formData) => {
     console.log(formData);
     newLink(formData, setLoading);
+    console.log(formData);
   };
 
   if (isModalOpen) {
