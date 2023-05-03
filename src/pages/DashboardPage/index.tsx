@@ -42,17 +42,21 @@ export const DashboardPage = () => {
             {grid ? (
               <div>
                 <StyledUlList>
-                  {listLinks.map((link) => (
-                    <StyledCardList>
-                      <img src={link.img} alt="" />
-                      <div>
-                        <h3>{link.title}</h3>
-                        <h3>Comentários</h3>
-                        <p>{link.comments}</p>
-                        <button>Remover link</button>
-                      </div>
-                    </StyledCardList>
-                  ))}
+                  {listLinks.map((link) => {
+                    console.log(link);
+
+                    return (
+                      <StyledCardList>
+                        <img src={link.img} alt="" />
+                        <div>
+                          <h3>{link.title}</h3>
+                          <h3>Comentários</h3>
+                          <p>{link.comments}</p>
+                          <button>Remover link</button>
+                        </div>
+                      </StyledCardList>
+                    );
+                  })}
                   <StyledCardList>
                     <img src={Image} alt="" />
                     <div>
@@ -102,6 +106,21 @@ export const DashboardPage = () => {
               </div>
             ) : (
               <StyledUlGrid>
+                {listLinks.map((link) => {
+                  console.log(link);
+
+                  return (
+                    <StyledCardList>
+                      <img src={link.img} alt="" />
+                      <div>
+                        <h3>{link.title}</h3>
+                        <h3>Comentários</h3>
+                        <p>{link.comments}</p>
+                        <button>Remover link</button>
+                      </div>
+                    </StyledCardList>
+                  );
+                })}
                 <StyledCardGrid>
                   <img src={Image} alt="" />
                   <div>

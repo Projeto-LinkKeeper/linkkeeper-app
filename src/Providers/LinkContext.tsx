@@ -1,7 +1,8 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { api } from "../Services/api";
 import { toast } from "react-toastify";
 import { TLinkFormValues } from "../components/Modals/AddLinkModal/LinkSchema";
+import { UserContext } from "./UserContext";
 
 interface ILinkProviderProps {
   children: React.ReactNode;
@@ -16,6 +17,14 @@ export interface ILink {
   userId: number;
 }
 
+interface IUser {
+  email: string;
+  id: number;
+  links: ILink[];
+  name: string;
+  password: string;
+}
+
 interface ILinkContext {
   listLinks: ILink[];
 
@@ -24,25 +33,27 @@ interface ILinkContext {
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
   deleteLink: (linkId: number) => Promise<void>;
-
 }
 
 export const LinkContext = createContext({} as ILinkContext);
 
 export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const [listLinks, setListLinks] = useState<ILink[]>([]);
+  const { user } = useContext(UserContext);
 
   const getLinks = async () => {
     const token = localStorage.getItem("@TOKEN");
     const userId = localStorage.getItem("@USERID");
 
     try {
-      const { data } = await api.get<ILink[]>(`/users/${userId}?_embed=links`, {
+      const response = await api.get<IUser>(`/users/${userId}?_embed=links`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setListLinks(data.links);
+      console.log(response.data.links);
+
+      setListLinks(response.data.links);
     } catch (error) {
       console.log(error);
       toast.error("Algo deu errado");
@@ -73,20 +84,24 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     }
   };
 
-
   const newLink = async (
     formData: TLinkFormValues,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
-
     const token = localStorage.getItem("@TOKEN");
     try {
       setLoading(true);
-      const { data } = await api.post("/links", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      console.log(formData);
+
+      const { data } = await api.post(
+        "/links",
+        { ...formData, userId: user!.id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setListLinks([...listLinks, data]);
       toast.success("Link adicionado com sucesso!");
     } catch (error) {
