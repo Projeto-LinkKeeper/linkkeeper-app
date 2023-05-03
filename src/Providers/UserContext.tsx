@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { TLoginFormValues } from "../components/LoginForm/schema";
 import { api } from "../Services/api";
 import { IResgisterFormData } from "../components/RegisterForm";
+import { ILink } from "./LinkContext";
 
 interface IUserProviderProps {
   children: React.ReactNode;
@@ -22,11 +23,12 @@ interface IUserContext {
   user: IUser | null;
 }
 
-interface IUser {
+export interface IUser {
   email: string;
   password: string;
   name: string;
   id: string;
+  links?: ILink[]
 }
 
 interface IUserLoginResponse {
