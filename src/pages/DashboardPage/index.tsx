@@ -13,8 +13,7 @@ export const DashboardPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { listLinks, listCategories } = useContext(LinkContext);
 
-
-  console.log(listCategories)
+  console.log(listCategories);
   console.log(listLinks);
 
   return (
@@ -28,9 +27,9 @@ export const DashboardPage = () => {
               setIsModalOpen={setIsModalOpen}
             />
             <div>
-              {listCategories.map((currentCategory =>
+              {listCategories.map((currentCategory) => (
                 <button>{currentCategory}</button>
-                ))}
+              ))}
             </div>
             <StyledGridControls>
               <h3>Vídeos</h3>
@@ -64,51 +63,6 @@ export const DashboardPage = () => {
                       </StyledCardList>
                     );
                   })}
-                  <StyledCardList>
-                    <img src={Image} alt="" />
-                    <div>
-                      <h3>
-                        Clonando a interface do Twitter: Aula 1 - Projeto e
-                        Ferramentas [HTML, CSS e JS]
-                      </h3>
-                      <h3>Comentários</h3>
-                      <p>
-                        -Ferramentas úteis em 4:26 - Diferenças de HTML e JS
-                        -Clonagem de rep em 3:01
-                      </p>
-                      <button>Remover link</button>
-                    </div>
-                  </StyledCardList>
-                  <StyledCardList>
-                    <img src={Image} alt="" />
-                    <div>
-                      <h3>
-                        Clonando a interface do Twitter: Aula 1 - Projeto e
-                        Ferramentas [HTML, CSS e JS]
-                      </h3>
-                      <h3>Comentários</h3>
-                      <p>
-                        -Ferramentas úteis em 4:26 - Diferenças de HTML e JS
-                        -Clonagem de rep em 3:01
-                      </p>
-                      <button>Remover link</button>
-                    </div>
-                  </StyledCardList>
-                  <StyledCardList>
-                    <img src={Image} alt="" />
-                    <div>
-                      <h3>
-                        Clonando a interface do Twitter: Aula 1 - Projeto e
-                        Ferramentas [HTML, CSS e JS]
-                      </h3>
-                      <h3>Comentários</h3>
-                      <p>
-                        -Ferramentas úteis em 4:26 - Diferenças de HTML e JS
-                        -Clonagem de rep em 3:01
-                      </p>
-                      <button>Remover link</button>
-                    </div>
-                  </StyledCardList>
                 </StyledUlList>
               </div>
             ) : (
@@ -117,7 +71,7 @@ export const DashboardPage = () => {
                   console.log(link);
 
                   return (
-                    <StyledCardList>
+                    <StyledCardGrid>
                       <img src={link.img} alt="" />
                       <div>
                         <h3>{link.title}</h3>
@@ -125,39 +79,9 @@ export const DashboardPage = () => {
                         <p>{link.comments}</p>
                         <button>Remover link</button>
                       </div>
-                    </StyledCardList>
+                    </StyledCardGrid>
                   );
                 })}
-                <StyledCardGrid>
-                  <img src={Image} alt="" />
-                  <div>
-                    <h3>
-                      Clonando a interface do Twitter: Aula 1 - Projeto e
-                      Ferramentas [HTML, CSS e JS]
-                    </h3>
-                    <button>Remover link</button>
-                  </div>
-                </StyledCardGrid>
-                <StyledCardGrid>
-                  <img src={Image} alt="" />
-                  <div>
-                    <h3>
-                      Clonando a interface do Twitter: Aula 1 - Projeto e
-                      Ferramentas [HTML, CSS e JS]
-                    </h3>
-                    <button>Remover link</button>
-                  </div>
-                </StyledCardGrid>
-                <StyledCardGrid>
-                  <img src={Image} alt="" />
-                  <div>
-                    <h3>
-                      Clonando a interface do Twitter: Aula 1 - Projeto e
-                      Ferramentas [HTML, CSS e JS]
-                    </h3>
-                    <button>Remover link</button>
-                  </div>
-                </StyledCardGrid>
               </StyledUlGrid>
             )}
           </main>

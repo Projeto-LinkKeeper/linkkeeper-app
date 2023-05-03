@@ -44,16 +44,12 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
 
   const [listCategories, setListCategories] = useState<string[]>([]);
 
-
   const getLinks = async () => {
-    console.log("rodou")
     const token = localStorage.getItem("@TOKEN");
     const userId = localStorage.getItem("@USERID");
 
     try {
-
       const response = await api.get<IUser>(`/users/${userId}?_embed=links`, {
-
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -62,7 +58,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       console.log(response.data.links);
 
       setListLinks(response.data.links);
-
     } catch (error) {
       console.log(error);
       toast.error("Algo deu errado");
@@ -112,7 +107,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         }
       );
       setListLinks([...listLinks, data]);
-      setListCategories([...listCategories, data.category])
+      setListCategories([...listCategories, data.category]);
       toast.success("Link adicionado com sucesso!");
     } catch (error) {
       console.log(error);
@@ -128,7 +123,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         listLinks,
         deleteLink,
         newLink,
-        listCategories
+        listCategories,
       }}
     >
       {children}
