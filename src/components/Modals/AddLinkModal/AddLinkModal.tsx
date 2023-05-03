@@ -7,6 +7,9 @@ import { StyledSubmitButton } from "../../../styles/button";
 import { LinkSchema, TLinkFormValues } from "./LinkSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+
+
+
 export interface IModalHandleProps {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -96,6 +99,7 @@ export const AddNewLinkModal = ({
                   disabled={loading}
                 >
                   {loading ? "Adicionando link..." : "Adicionar Link"}
+
                 </StyledSubmitButton>
               </form>
             </div>

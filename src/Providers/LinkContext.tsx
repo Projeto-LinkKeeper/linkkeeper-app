@@ -16,6 +16,7 @@ export interface ILink {
   comments: string;
   userId: number;
   category: string;
+  category: string;
 }
 
 interface IUser {
@@ -36,6 +37,7 @@ interface ILinkContext {
   deleteLink: (linkId: number) => Promise<void>;
   listCategories: string[];
   setListLinks: React.Dispatch<React.SetStateAction<ILink[]>>;
+  filterLinks: (category: string) => Promise<void>;
 }
 
 export const LinkContext = createContext({} as ILinkContext);
@@ -47,9 +49,8 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
 
   const [listCategories, setListCategories] = useState<string[]>([]);
 
-
   const getLinks = async () => {
-    console.log("rodou")
+
     const token = localStorage.getItem("@TOKEN");
     const userId = localStorage.getItem("@USERID");
 
@@ -62,19 +63,32 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         },
       });
 
-      console.log(response.data.links);
-
       setListLinks(response.data.links);
-
+      const categories = response.data.links.map(currentLink => {
+        return currentLink.category
+      })
+      setListCategories(categories)
+      return(response.data.links)
     } catch (error) {
-      console.log(error);
+
       toast.error("Algo deu errado");
     }
   };
 
+  console.log(listCategories)
   useEffect(() => {
     getLinks();
   }, []);
+
+
+
+  const filterLinks = async (category: string) => {
+    const listLinks = await getLinks(); 
+    const newListLinks = listLinks!.filter(currentLink => {
+      return currentLink.category === category;
+    })
+    setListLinks(newListLinks);
+  }
 
   const deleteLink = async (linkId: number) => {
     const token = localStorage.getItem("@TOKEN");
@@ -103,11 +117,9 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     const token = localStorage.getItem("@TOKEN");
     try {
       setLoading(true);
-      console.log(formData);
-
       const { data } = await api.post(
         "/links",
-        { ...formData, userId: user!.id },
+        { ...formData, userId: user?.id },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -133,6 +145,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         newLink,
         listCategories,
         setListLinks,
+        filterLinks,
       }}
     >
       {children}

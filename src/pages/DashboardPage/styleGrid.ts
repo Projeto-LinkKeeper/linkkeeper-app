@@ -8,20 +8,20 @@ export const StyledUlGrid = styled.ul`
 
   flex-wrap: wrap;
   padding: 15px;
-
+  margin: 0 auto;
   background-color: var(--grey-3);
+  justify-content: center;
 `;
 
 export const StyledCardGrid = styled.li`
-  width: 168px;
-  height: 128px;
-
+  width: 250px;
+  height: 195px;
+  padding: 10px;
   border: 1px solid var(--grey-0);
   border-radius: 4px;
-
   img {
-    width: 110px;
-    height: 61px;
+    width: 180px;
+    height: 90px;
   }
 
   h3 {
@@ -29,3 +29,8 @@ export const StyledCardGrid = styled.li`
     color: var(--grey-0);
   }
 `;
+
+export const StyledFilter = styled.div`
+  button{
+    background-color: red;
+  }`
