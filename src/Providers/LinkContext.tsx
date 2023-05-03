@@ -24,25 +24,27 @@ interface ILinkContext {
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
   deleteLink: (linkId: number) => Promise<void>;
-
+  listCategories: string[]
 }
 
 export const LinkContext = createContext({} as ILinkContext);
 
 export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const [listLinks, setListLinks] = useState<ILink[]>([]);
+  const [listCategories, setListCategories] = useState<string[]>([]);
 
   const getLinks = async () => {
+    console.log("rodou")
     const token = localStorage.getItem("@TOKEN");
     const userId = localStorage.getItem("@USERID");
 
     try {
-      const { data } = await api.get<ILink[]>(`/users/${userId}?_embed=links`, {
+      const response = await api.get<ILink[]>(`/users/${userId}?_embed=links`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setListLinks(data.links);
+      console.log(response);
     } catch (error) {
       console.log(error);
       toast.error("Algo deu errado");
@@ -88,6 +90,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         },
       });
       setListLinks([...listLinks, data]);
+      setListCategories([...listCategories, data.category])
       toast.success("Link adicionado com sucesso!");
     } catch (error) {
       console.log(error);
@@ -103,6 +106,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         listLinks,
         deleteLink,
         newLink,
+        listCategories
       }}
     >
       {children}

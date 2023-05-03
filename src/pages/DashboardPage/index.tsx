@@ -11,8 +11,10 @@ import { LinkContext } from "../../Providers/LinkContext";
 export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { listLinks } = useContext(LinkContext);
+  const { listLinks, listCategories } = useContext(LinkContext);
 
+
+  console.log(listCategories)
   console.log(listLinks);
 
   return (
@@ -25,6 +27,11 @@ export const DashboardPage = () => {
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
             />
+            <div>
+              {listCategories.map((currentCategory =>
+                <button>{currentCategory}</button>
+                ))}
+            </div>
             <StyledGridControls>
               <h3>Vídeos</h3>
               <button onClick={() => setIsModalOpen(true)}>add link</button>
