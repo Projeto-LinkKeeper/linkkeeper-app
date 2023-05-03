@@ -11,8 +11,6 @@ export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log(isModalOpen);
-
   return (
     <>
       <main>

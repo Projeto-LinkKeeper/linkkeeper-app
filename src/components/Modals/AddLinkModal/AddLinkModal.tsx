@@ -4,18 +4,22 @@ import { LinkContext } from "../../../Providers/LinkContext";
 import { StyledModal } from "./style";
 import { Input } from "../../Input";
 import { StyledSubmitButton } from "../../../styles/button";
+import { LinkSchema, TLinkFormValues } from "./LinkSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export const AddNewLinkModal = ({ isModalOpen, setIsModalOpen }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<TLinkFormValues>({
+    resolver: zodResolver(LinkSchema),
+  });
 
   const [loading, setLoading] = useState(false);
   const { newLink } = useContext(LinkContext);
 
-  const submit = (formData) => {
+  const submit = (formData: TLinkFormValues) => {
     newLink(formData);
   };
 
@@ -40,6 +44,7 @@ export const AddNewLinkModal = ({ isModalOpen, setIsModalOpen }) => {
                 label="Título"
                 id="title"
                 placeholder="Título do link"
+                error={errors.title?.message}
                 {...register("title")}
                 disabled={loading}
               />
@@ -48,15 +53,17 @@ export const AddNewLinkModal = ({ isModalOpen, setIsModalOpen }) => {
                 label="Link"
                 id="link"
                 placeholder="Ex: https://link.com"
+                error={errors.link?.message}
                 {...register("link")}
                 disabled={loading}
               />
               <Input
                 type="text"
                 label="Url da imagem"
-                id="imgUrl"
+                id="img"
                 placeholder="Ex: https://imagem/img2.png"
-                {...register("imgUrl")}
+                error={errors.img?.message}
+                {...register("img")}
                 disabled={loading}
               />
               <select name="Categorias" id="category">
@@ -67,7 +74,7 @@ export const AddNewLinkModal = ({ isModalOpen, setIsModalOpen }) => {
                 <option value="figma">Figmas</option>
                 <option value="documents">Documentos</option>
               </select>
-              <textarea name="" id="" cols="30" rows="10"></textarea>
+              <textarea name="" id="" cols={30} rows={10}></textarea>
               <StyledSubmitButton
                 $backgroundColor={loading ? "disabled" : "primary"}
                 type="submit"

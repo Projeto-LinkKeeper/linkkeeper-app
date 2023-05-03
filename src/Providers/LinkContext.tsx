@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { api } from "../Services/api";
 import { toast } from "react-toastify";
+import { TLinkFormValues } from "../components/Modals/AddLinkModal/LinkSchema";
 
 interface ILinkProviderProps {
   children: React.ReactNode;
@@ -17,8 +18,7 @@ export interface ILink {
 
 interface ILinkContext {
   listLinks: ILink[];
-  getUserLinks: () => Promise<void>;
-  newLink: (formData) => Promise<void>;
+  newLink: (formData: TLinkFormValues) => Promise<void>;
   deleteLink: (linkId: number) => Promise<void>;
 }
 
@@ -39,6 +39,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       });
       setListLinks(data);
     } catch (error) {
+      console.log(error);
       toast.error("Algo deu errado");
     }
   };
@@ -61,11 +62,13 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       setListLinks(newListLinks);
       toast.success("Link removido com sucesso!");
     } catch (error) {
+      console.log(error);
+
       toast.error("Algo deu errado!");
     }
   };
 
-  const newLink = async (formData) => {
+  const newLink = async (formData: TLinkFormValues) => {
     const token = localStorage.getItem("@TOKEN");
     try {
       const { data } = await api.post("/links", formData, {
@@ -76,6 +79,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       setListLinks([...listLinks, data]);
       toast.success("Link adicionado com sucesso!");
     } catch (error) {
+      console.log(error);
       toast.error("Algo deu errado");
     }
   };
@@ -84,7 +88,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     <LinkContext.Provider
       value={{
         listLinks,
-        setListLinks,
         deleteLink,
         newLink,
       }}
