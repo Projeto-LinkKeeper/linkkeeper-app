@@ -48,9 +48,8 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
 
   const [listCategories, setListCategories] = useState<string[]>([]);
 
-
   const getLinks = async () => {
-    console.log("rodou")
+
     const token = localStorage.getItem("@TOKEN");
     const userId = localStorage.getItem("@USERID");
 
@@ -63,8 +62,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         },
       });
 
-      console.log(response.data.links);
-
       setListLinks(response.data.links);
       const categories = response.data.links.map(currentLink => {
         return currentLink.category
@@ -72,7 +69,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       setListCategories(categories)
       return(response.data.links)
     } catch (error) {
-      console.log(error);
+
       toast.error("Algo deu errado");
     }
   };
@@ -119,11 +116,9 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     const token = localStorage.getItem("@TOKEN");
     try {
       setLoading(true);
-      console.log(formData);
-
       const { data } = await api.post(
         "/links",
-        { ...formData, userId: user!.id },
+        { ...formData, userId: user?.id },
         {
           headers: {
             Authorization: `Bearer ${token}`,
