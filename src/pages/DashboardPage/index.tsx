@@ -19,12 +19,12 @@ export const DashboardPage = () => {
     <>
       <main>
         <div>
-          <AddNewLinkModal
-            isModalOpen={isModalOpen}
-            setIsModalOpen={setIsModalOpen}
-          />
           <Header />
           <main>
+            <AddNewLinkModal
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+            />
             <StyledGridControls>
               <h3>Vídeos</h3>
               <button onClick={() => setIsModalOpen(true)}>add link</button>
@@ -42,6 +42,17 @@ export const DashboardPage = () => {
             {grid ? (
               <div>
                 <StyledUlList>
+                  {listLinks.map((link) => (
+                    <StyledCardList>
+                      <img src={link.img} alt="" />
+                      <div>
+                        <h3>{link.title}</h3>
+                        <h3>Comentários</h3>
+                        <p>{link.comments}</p>
+                        <button>Remover link</button>
+                      </div>
+                    </StyledCardList>
+                  ))}
                   <StyledCardList>
                     <img src={Image} alt="" />
                     <div>

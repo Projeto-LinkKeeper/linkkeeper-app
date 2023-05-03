@@ -21,7 +21,7 @@ export const AddNewLinkModal = ({ isModalOpen, setIsModalOpen }) => {
 
   const submit: SubmitHandler<TLinkFormValues> = (formData) => {
     newLink(formData, setLoading);
-    console.log(formData);
+    console.log(newLink);
   };
 
   if (isModalOpen) {
@@ -69,11 +69,12 @@ export const AddNewLinkModal = ({ isModalOpen, setIsModalOpen }) => {
               />
               <select name="Categorias" id="category">
                 <option value="">Seleciona uma opção de categoria</option>
-                <option value="videos">Vídeos</option>
-                <option value="images">Imagens</option>
+                <option value="books">Livros</option>
+                <option value="video">Vídeo</option>
+                <option value="music">Música</option>
+                <option value="series">Séries</option>
                 <option value="recipes">Receitas</option>
-                <option value="figma">Figmas</option>
-                <option value="documents">Documentos</option>
+                <option value="others">Outra</option>
               </select>
               <textarea name="" id="" cols={30} rows={10}></textarea>
               <StyledSubmitButton
