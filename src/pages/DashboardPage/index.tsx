@@ -19,10 +19,10 @@ export const DashboardPage = () => {
     <>
       <main>
         <div>
-          {/* <AddNewLinkModal
+          <AddNewLinkModal
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
-          /> */}
+          />
           <Header />
           <main>
             <StyledGridControls>
