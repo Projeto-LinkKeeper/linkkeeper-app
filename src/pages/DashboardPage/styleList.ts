@@ -6,9 +6,11 @@ export const StyledGridControls = styled.div`
   align-items: center;
 
   width: 90%;
+
   max-width: 780px;
   height: 60px;
   margin: 0 auto;
+
   color: var(--grey-0);
 
   button {
@@ -56,6 +58,9 @@ export const StyledCardList = styled.li`
 
   border: 1px solid var(--grey-0);
   border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+
 
   img {
     max-width: 169px;

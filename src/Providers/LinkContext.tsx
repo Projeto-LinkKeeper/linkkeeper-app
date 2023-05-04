@@ -46,6 +46,8 @@ export const LinkContext = createContext({} as ILinkContext);
 export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const [listLinks, setListLinks] = useState<ILink[]>([]);
   const [valueOfSearch, setValueOfSearch] = useState('');
+  const [searchedLink, setSearchedLink] = useState('');
+  const [filteredLinks, setFilteredLinks] = useState<ILink[]>([]);
   const { user } = useContext(UserContext);
   const [listCategories, setListCategories] = useState<string[]>([]);
   const [searchedLink, setSearchedLink] = useState('');
@@ -61,9 +63,8 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
-
       setListLinks(response.data.links);
-
+      
       const categories = response.data.links.map((currentLink) => {
         let exist = false;
         // return currentLink.category
