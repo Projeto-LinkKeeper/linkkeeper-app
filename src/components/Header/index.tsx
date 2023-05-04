@@ -10,6 +10,7 @@ import { useState } from "react";
 export const Header = () => {
   const { user } = useContext(UserContext);
   const { valueOfSearch, submit, input } = useContext(LinkContext);
+
   const navigate = useNavigate();
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);

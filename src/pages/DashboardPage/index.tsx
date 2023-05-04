@@ -8,10 +8,6 @@ import { AddNewLinkModal } from "../../components/Modals/AddLinkModal/AddLinkMod
 import { LinkContext } from "../../Providers/LinkContext";
 import { StyledFilter } from "./styleFilter";
 
-interface IModalCategory {
-  selectedCategory: string;
-  setSelectedCategory: React.Dispatch<React.SetStateAction<string | null>>;
-}
 export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
