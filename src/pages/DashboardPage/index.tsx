@@ -6,7 +6,6 @@ import { useContext, useState } from "react";
 import { StyledCardGrid, StyledUlGrid } from "./styleGrid";
 import { AddNewLinkModal } from "../../components/Modals/AddLinkModal/AddLinkModal";
 import { LinkContext } from "../../Providers/LinkContext";
-import { StyledFilter } from "./styleGrid";
 
 export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);

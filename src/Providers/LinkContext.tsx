@@ -78,10 +78,12 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
 
   const filterLinks = async (category: string) => {
     const listLinks = await getLinks();
-    const newListLinks = listLinks!.filter((currentLink) => {
-      return currentLink.category === category;
-    });
-    setListLinks(newListLinks);
+    if (listLinks) {
+      const newListLinks = listLinks.filter((currentLink) => {
+        return currentLink.category === category;
+      });
+      setListLinks(newListLinks);
+    }
   };
 
   const deleteLink = async (linkId: number) => {
