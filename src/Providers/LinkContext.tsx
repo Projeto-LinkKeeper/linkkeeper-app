@@ -49,45 +49,42 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const [listCategories, setListCategories] = useState<string[]>([]);
 
   const getLinks = async () => {
-
     const token = localStorage.getItem("@TOKEN");
     const userId = localStorage.getItem("@USERID");
 
     try {
-
       const response = await api.get<IUser>(`/users/${userId}?_embed=links`, {
-
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       setListLinks(response.data.links);
-      const categories = response.data.links.map(currentLink => {
-        return currentLink.category
-      })
-      setListCategories(categories)
-      return(response.data.links)
-    } catch (error) {
 
+      const categories = response.data.links.map((currentLink) => {
+        return currentLink.category;
+      });
+      setListCategories(categories);
+      return response.data.links;
+    } catch (error) {
       toast.error("Algo deu errado");
     }
   };
 
-  console.log(listCategories)
+  console.log(listCategories);
   useEffect(() => {
     getLinks();
   }, []);
 
-
-
   const filterLinks = async (category: string) => {
-    const listLinks = await getLinks(); 
-    const newListLinks = listLinks!.filter(currentLink => {
-      return currentLink.category === category;
-    })
-    setListLinks(newListLinks);
-  }
+    const listLinks = await getLinks();
+    if (listLinks) {
+      const newListLinks = listLinks.filter((currentLink) => {
+        return currentLink.category === category;
+      });
+      setListLinks(newListLinks);
+    }
+  };
 
   const deleteLink = async (linkId: number) => {
     const token = localStorage.getItem("@TOKEN");
@@ -126,7 +123,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         }
       );
       setListLinks([...listLinks, data]);
-      setListCategories([...listCategories, data.category])
+      setListCategories([...listCategories, data.category]);
       toast.success("Link adicionado com sucesso!");
     } catch (error) {
       console.log(error);
@@ -143,6 +140,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         deleteLink,
         newLink,
         listCategories,
+
         setListLinks,
         filterLinks,
       }}
