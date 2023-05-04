@@ -3,11 +3,13 @@ import styled from "styled-components";
 export const StyledFilter = styled.div`
     width: 100%;
     border-bottom: 2px solid var(--grey-3);
+    
     display: flex;
     gap: 15px;
     margin-bottom: 10px;
     align-items: center;
     justify-content: center;
+
     overflow-x: auto;
     
     button{
