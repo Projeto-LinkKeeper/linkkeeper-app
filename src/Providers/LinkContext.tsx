@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import  React, { createContext, useContext, useEffect, useState } from "react";
 import { api } from "../Services/api";
 import { toast } from "react-toastify";
 import { TLinkFormValues } from "../components/Modals/AddLinkModal/LinkSchema";
@@ -38,16 +38,18 @@ interface ILinkContext {
   listCategories: string[];
   setListLinks: React.Dispatch<React.SetStateAction<ILink[]>>;
   filterLinks: (category: string) => Promise<void>;
+  valueOfSearch: string;
 }
 
 export const LinkContext = createContext({} as ILinkContext);
 
 export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const [listLinks, setListLinks] = useState<ILink[]>([]);
-
+  const [valueOfSearch, setValueOfSearch] = useState('');
   const { user } = useContext(UserContext);
-  const [list, setList] = useState<string[]>([])
   const [listCategories, setListCategories] = useState<string[]>([]);
+  const [searchedLink, setSearchedLink] = useState('');
+  const [filteredLinks, setFilteredLinks] = useState<ILink[]>([]);
 
   const getLinks = async () => {
     const token = localStorage.getItem("@TOKEN");
@@ -74,7 +76,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
           setListCategories([...listCategories, currentLink.category])
         }
       });
-      console.log(listCategories)
      
       return response.data.links;
     } catch (error) {
@@ -143,6 +144,24 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     }
   };
 
+  const search = () => {
+    const filteredLinks = listLinks.filter((link) => (
+        valueOfSearch === '' || link.title.includes(valueOfSearch.toLowerCase()))
+        )
+        setFilteredLinks(filteredLinks)
+        setSearchedLink(valueOfSearch)
+        // setFomSubmit(true)
+  }
+
+  const input = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValueOfSearch(event.target.value)
+  }
+
+  const submit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    search()
+  }
+
   return (
     <LinkContext.Provider
       value={{
@@ -153,6 +172,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         getLinks,
         setListLinks,
         filterLinks,
+        valueOfSearch,
       }}
     >
       {children}
