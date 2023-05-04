@@ -6,6 +6,8 @@ export const StyledModal = styled.div`
   align-items: center;
   padding-top: 50px;
 
+  z-index: 2;
+
   position: fixed;
   top: 0;
   left: 0;
