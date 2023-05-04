@@ -17,7 +17,7 @@ export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { listLinks, listCategories, deleteLink, filterLinks } =
+  const { listLinks, listCategories, deleteLink, filterLinks, getLinks } =
     useContext(LinkContext);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
@@ -38,8 +38,10 @@ export const DashboardPage = () => {
               ))}
 
               <StyledFilter>
+                {listCategories.length>=2? <button onClick={() => getLinks()}>Todos</button>: null}
                 {listCategories.map((currentCategory) => (
                   <button
+                    key={currentCategory}
                     className="filter"
                     onClick={() => {
                       filterLinks(currentCategory),

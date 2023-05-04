@@ -5,12 +5,14 @@ import { StyledHeader } from "./style";
 import { useContext } from "react";
 import { UserContext } from "../../Providers/UserContext";
 import { useState } from "react";
+import { LinkContext } from "../../Providers/LinkContext";
 
 export const Header = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
+  const {getLinks} = useContext(LinkContext);
 
   const userLogout = () => {
     localStorage.removeItem("@TOKEN");
@@ -36,7 +38,7 @@ export const Header = () => {
           </div>
           <div></div>
           <div className="header-right">
-            <p className="header-item">Home</p>
+            <button className="header-item" onClick={() => getLinks()}>Home</button>
             <p className="header-item">Buscar</p>
           </div>
           <div className="drop-down">
