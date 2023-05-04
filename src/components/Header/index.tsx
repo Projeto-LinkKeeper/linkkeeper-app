@@ -2,12 +2,15 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logotipo from "../../assets/logo.svg";
 import ProfileIcon from "../../assets/profile-icon.png";
 import { StyledHeader } from "./style";
-import { useContext } from "react";
-import { UserContext } from "../../Providers/UserContext";
-import { useState } from "react";
+import { useContext } from 'react';
+import { UserContext } from '../../Providers/UserContext';
 import { LinkContext } from "../../Providers/LinkContext";
+import { useState } from "react";
 
 export const Header = () => {
+
+  const { user } = useContext(UserContext);
+  const {valueOfSearch, submit, input} = useContext(LinkContext);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,22 +35,15 @@ export const Header = () => {
       ) : null}
 
       {location.pathname === "/home" ? (
-        <div className="header">
-          <div className="header-left">
-            <img src={Logotipo} alt="Logotipo" />
-          </div>
-          <div></div>
-          <div className="header-right">
-            <button className="header-item" onClick={() => getLinks()}>Home</button>
-            <p className="header-item">Buscar</p>
-          </div>
-          <div className="drop-down">
-            <div
-              className="user-profile"
-              onClick={() => setShowMenu(!showMenu)}
-            >
-              <img src={ProfileIcon} alt="Profile icon" />
-              <p className="header-item">Bem vindo, {user?.name}</p>
+          <div className="header">
+            <div className="header-left">
+              <img src={Logotipo} alt="Logotipo" />
+            </div>
+            <div className="header-right">
+              <form onSubmit={submit}>
+                <input type="text" placeholder="Pesquisar"  value={valueOfSearch} onChange={input} />
+                <button>Pesquisar</button>
+              </form>
             </div>
             {showMenu && (
               <div className="dropdown-menu">
