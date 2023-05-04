@@ -20,21 +20,18 @@ export const DashboardPage = () => {
       <main>
         <div>
           <Header />
-          <main>
             <AddNewLinkModal
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
             />
-
-            <div>
-              {listCategories.map((currentCategory) => (
-                <button>{currentCategory}</button>
-              ))}
-
               <StyledFilter>
+
                 {listCategories.length >= 2 ? (
                   <button onClick={() => getLinks()}>Todos</button>
                 ) : null}
+
+                <button onClick={() => getLinks()}>Todos</button>
+
                 {listCategories.map((currentCategory) => (
                   <button
                     key={currentCategory}
@@ -129,8 +126,6 @@ export const DashboardPage = () => {
               </StyledUlGrid>
             )}
           </main>
-        </div>
-      </main>
     </>
   );
 };
