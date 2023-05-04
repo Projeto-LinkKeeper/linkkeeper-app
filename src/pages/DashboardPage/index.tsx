@@ -6,12 +6,19 @@ import { useContext, useState } from "react";
 import { StyledCardGrid, StyledUlGrid } from "./styleGrid";
 import { AddNewLinkModal } from "../../components/Modals/AddLinkModal/AddLinkModal";
 import { LinkContext } from "../../Providers/LinkContext";
-import { StyledFilter } from "./styleGrid";
+import { StyledFilter } from "./styleFilter";
+
+interface IModalCategory{
+  selectedCategory: string,
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string | null>>,
+}
 
 export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { listLinks, listCategories, deleteLink, filterLinks } = useContext(LinkContext);
+  const [selectedCategory, setSelectedCategory] = useState<string |null>(null);
+  console.log(selectedCategory)
 
   return (
     <>
@@ -25,12 +32,12 @@ export const DashboardPage = () => {
             />
             <StyledFilter>
               {listCategories.map((currentCategory =>
-                <button className="filter" onClick={() => { filterLinks(currentCategory)}
-              }>{currentCategory}</button>
+                <button className="filter" onClick={() => { filterLinks(currentCategory), setSelectedCategory(currentCategory)}
+              }>{currentCategory.charAt(0).toUpperCase()+currentCategory.slice(1)}</button>
               ))}
             </StyledFilter>
             <StyledGridControls>
-              <h3>Vídeos</h3>
+              <h3>{selectedCategory? selectedCategory.charAt(0).toUpperCase()+selectedCategory.slice(1) : "Seus Links"}</h3>
               <button onClick={() => setIsModalOpen(true)}>add link</button>
               <div className="gridControls">
                 <button onClick={() => setGrid(true)}>
