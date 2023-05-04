@@ -20,7 +20,6 @@ export const DashboardPage = () => {
   const { listLinks, listCategories, deleteLink, filterLinks } =
     useContext(LinkContext);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  console.log(selectedCategory);
 
   return (
     <>
@@ -60,7 +59,9 @@ export const DashboardPage = () => {
                     selectedCategory.slice(1)
                   : "Seus Links"}
               </h3>
-              <button onClick={() => setIsModalOpen(true)}>add link</button>
+              <button onClick={() => setIsModalOpen(true)}>
+                + Adicionar link
+              </button>
               <div className="gridControls">
                 <button onClick={() => setGrid(true)}>
                   <img src={listIcon} alt="" />
@@ -76,6 +77,7 @@ export const DashboardPage = () => {
               <div>
                 <StyledUlList>
                   {listLinks.map((link) => {
+                    const comment = link.comments;
                     return (
                       <StyledCardList key={link.id}>
                         <div>
@@ -84,8 +86,8 @@ export const DashboardPage = () => {
                         <div>
                           <h3>{link.title}</h3>
                           <a href={link.link}>{link.link}</a>
-                          <h3>Comentários</h3>
-                          <p>{link.comments}</p>
+                          <h3>Comentários:</h3>
+                          <p>{comment}</p>
                           <button onClick={() => deleteLink(link.id)}>
                             Remover link
                           </button>
@@ -98,6 +100,7 @@ export const DashboardPage = () => {
             ) : (
               <StyledUlGrid>
                 {listLinks.map((link) => {
+                  const comment = link.comments;
                   return (
                     <StyledCardGrid>
                       <img src={link.img} alt="" />
@@ -105,7 +108,7 @@ export const DashboardPage = () => {
                         <h3>{link.title}</h3>
                         <a href={link.link}>{link.link}</a>
                         <h3>Comentários</h3>
-                        <p>{link.comments}</p>
+                        <p>{`${comment.substring(0, 50)}...`}</p>
                         <button onClick={() => deleteLink(link.id)}>
                           Remover link
                         </button>
