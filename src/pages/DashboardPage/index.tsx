@@ -8,10 +8,7 @@ import { AddNewLinkModal } from "../../components/Modals/AddLinkModal/AddLinkMod
 import { LinkContext } from "../../Providers/LinkContext";
 import { StyledFilter } from "./styleFilter";
 
-interface IModalCategory {
-  selectedCategory: string;
-  setSelectedCategory: React.Dispatch<React.SetStateAction<string | null>>;
-}
+
 export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,19 +21,12 @@ export const DashboardPage = () => {
       <main>
         <div>
           <Header />
-          <main>
             <AddNewLinkModal
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
             />
-
-            <div>
-              {listCategories.map((currentCategory) => (
-                <button>{currentCategory}</button>
-              ))}
-
               <StyledFilter>
-                {listCategories.length>=2? <button onClick={() => getLinks()}>Todos</button>: null}
+                <button onClick={() => getLinks()}>Todos</button>
                 {listCategories.map((currentCategory) => (
                   <button
                     key={currentCategory}
@@ -119,8 +109,6 @@ export const DashboardPage = () => {
               </StyledUlGrid>
             )}
           </main>
-        </div>
-      </main>
     </>
   );
 };

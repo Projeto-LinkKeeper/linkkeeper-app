@@ -3,19 +3,15 @@ import Logotipo from "../../assets/logo.svg";
 import ProfileIcon from "../../assets/profile-icon.png";
 import { StyledHeader } from "./style";
 import { useContext } from 'react';
-import { UserContext } from '../../Providers/UserContext';
 import { LinkContext } from "../../Providers/LinkContext";
 import { useState } from "react";
 
 export const Header = () => {
 
-  const { user } = useContext(UserContext);
-  const {valueOfSearch, submit, input} = useContext(LinkContext);
-  const { user } = useContext(UserContext);
+  const {valueOfSearch} = useContext(LinkContext);
   const navigate = useNavigate();
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
-  const {getLinks} = useContext(LinkContext);
 
   const userLogout = () => {
     localStorage.removeItem("@TOKEN");
@@ -40,8 +36,8 @@ export const Header = () => {
               <img src={Logotipo} alt="Logotipo" />
             </div>
             <div className="header-right">
-              <form onSubmit={submit}>
-                <input type="text" placeholder="Pesquisar"  value={valueOfSearch} onChange={input} />
+              <form>
+                <input type="text" placeholder="Pesquisar"  value={valueOfSearch}/>
                 <button>Pesquisar</button>
               </form>
             </div>
@@ -53,7 +49,6 @@ export const Header = () => {
               </div>
             )}
           </div>
-        </div>
       ) : null}
 
       {location.pathname === "/" ? (
