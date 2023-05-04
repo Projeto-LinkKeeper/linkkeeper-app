@@ -39,6 +39,10 @@ export const StyledUlList = styled.ul`
   justify-content: center;
 
   align-items: center;
+
+  h3 {
+    color: var(--grey-0);
+  }
 `;
 
 export const StyledCardList = styled.li`
@@ -61,12 +65,8 @@ export const StyledCardList = styled.li`
   justify-content: center;
   align-items: center;
 
-
   img {
-    max-width: 169px;
-    max-height: 92px;
-
-    border-radius: 4px;
+    display: none;
   }
 
   h3 {

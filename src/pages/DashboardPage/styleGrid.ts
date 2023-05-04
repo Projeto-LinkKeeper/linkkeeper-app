@@ -13,6 +13,10 @@ export const StyledUlGrid = styled.ul`
   margin: 0 auto;
   background-color: var(--grey-3);
   justify-content: center;
+
+  h3 {
+    color: var(--grey-0);
+  }
 `;
 
 export const StyledCardGrid = styled.li`
