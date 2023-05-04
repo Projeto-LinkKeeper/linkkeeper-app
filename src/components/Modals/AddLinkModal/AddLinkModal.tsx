@@ -6,6 +6,7 @@ import { Input } from "../../Input";
 import { StyledSubmitButton } from "../../../styles/button";
 import { LinkSchema, TLinkFormValues } from "./LinkSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { StyledFormModalContainer } from "../../../styles/form";
 
 export interface IModalHandleProps {
   isModalOpen: boolean;
@@ -48,7 +49,10 @@ export const AddNewLinkModal = ({
             </div>
 
             <div className="body__modal">
-              <form className="form__modal" onSubmit={handleSubmit(submit)}>
+              <StyledFormModalContainer
+                className="form__modal"
+                onSubmit={handleSubmit(submit)}
+              >
                 <Input
                   type="text"
                   label="Título"
@@ -76,21 +80,28 @@ export const AddNewLinkModal = ({
                   {...register("img")}
                   disabled={loading}
                 />
-                <select id="category" {...register("category")}>
-                  <option value="">Seleciona uma opção de categoria</option>
-                  <option value="books">Livros</option>
-                  <option value="video">Vídeo</option>
-                  <option value="music">Música</option>
-                  <option value="series">Séries</option>
-                  <option value="recipes">Receitas</option>
-                  <option value="others">Outra</option>
-                </select>
-                <textarea
-                  id="comments"
-                  cols={30}
-                  rows={10}
-                  {...register("comments")}
-                ></textarea>
+                <div>
+                  <label htmlFor="category">Categoria</label>
+                  <select id="category" {...register("category")}>
+                    <option value="">Seleciona uma opção de categoria</option>
+                    <option value="books">Livros</option>
+                    <option value="video">Vídeo</option>
+                    <option value="music">Música</option>
+                    <option value="series">Séries</option>
+                    <option value="recipes">Receitas</option>
+                    <option value="others">Outra</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="comments">Comentários</label>
+                  <textarea
+                    id="comments"
+                    cols={30}
+                    rows={10}
+                    {...register("comments")}
+                  ></textarea>
+                </div>
                 <StyledSubmitButton
                   $backgroundColor={loading ? "disabled" : "primary"}
                   type="submit"
@@ -98,7 +109,7 @@ export const AddNewLinkModal = ({
                 >
                   {loading ? "Adicionando link..." : "Adicionar Link"}
                 </StyledSubmitButton>
-              </form>
+              </StyledFormModalContainer>
             </div>
           </div>
         </StyledModal>
