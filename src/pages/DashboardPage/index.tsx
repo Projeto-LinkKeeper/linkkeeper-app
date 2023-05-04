@@ -20,7 +20,6 @@ export const DashboardPage = () => {
   const { listLinks, listCategories, deleteLink, filterLinks } =
     useContext(LinkContext);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  console.log(selectedCategory);
 
   return (
     <>
