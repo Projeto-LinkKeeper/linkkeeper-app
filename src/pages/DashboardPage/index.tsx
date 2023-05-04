@@ -16,10 +16,9 @@ export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { listLinks, listCategories, deleteLink, filterLinks } =
+  const { listLinks, listCategories, deleteLink, filterLinks, getLinks } =
     useContext(LinkContext);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  
   return (
     <>
       <main>
@@ -37,8 +36,10 @@ export const DashboardPage = () => {
               ))}
 
               <StyledFilter>
+                {listCategories.length>=2? <button onClick={() => getLinks()}>Todos</button>: null}
                 {listCategories.map((currentCategory) => (
                   <button
+                    key={currentCategory}
                     className="filter"
                     onClick={() => {
                       filterLinks(currentCategory),
@@ -58,7 +59,9 @@ export const DashboardPage = () => {
                     selectedCategory.slice(1)
                   : "Seus Links"}
               </h3>
-              <button onClick={() => setIsModalOpen(true)}>add link</button>
+              <button onClick={() => setIsModalOpen(true)}>
+                + Adicionar link
+              </button>
               <div className="gridControls">
                 <button onClick={() => setGrid(true)}>
                   <img src={listIcon} alt="" />
@@ -74,6 +77,7 @@ export const DashboardPage = () => {
               <div>
                 <StyledUlList>
                   {listLinks.map((link) => {
+                    const comment = link.comments;
                     return (
                       <StyledCardList key={link.id}>
                         <div>
@@ -82,8 +86,8 @@ export const DashboardPage = () => {
                         <div>
                           <h3>{link.title}</h3>
                           <a href={link.link}>{link.link}</a>
-                          <h3>Comentários</h3>
-                          <p>{link.comments}</p>
+                          <h3>Comentários:</h3>
+                          <p>{comment}</p>
                           <button onClick={() => deleteLink(link.id)}>
                             Remover link
                           </button>
@@ -96,6 +100,7 @@ export const DashboardPage = () => {
             ) : (
               <StyledUlGrid>
                 {listLinks.map((link) => {
+                  const comment = link.comments;
                   return (
                     <StyledCardGrid key={link.id}>
                       <img src={link.img} alt="" />
@@ -103,7 +108,7 @@ export const DashboardPage = () => {
                         <h3>{link.title}</h3>
                         <a href={link.link}>{link.link}</a>
                         <h3>Comentários</h3>
-                        <p>{link.comments}</p>
+                        <p>{`${comment.substring(0, 50)}...`}</p>
                         <button onClick={() => deleteLink(link.id)}>
                           Remover link
                         </button>

@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logotipo from "../../assets/logo.svg";
-import ProfileIcon from "../../assets/profile-icon.png"
+import ProfileIcon from "../../assets/profile-icon.png";
 import { StyledHeader } from "./style";
 import { useContext } from 'react';
 import { UserContext } from '../../Providers/UserContext';
@@ -11,10 +11,12 @@ export const Header = () => {
 
   const { user } = useContext(UserContext);
   const {valueOfSearch, submit, input} = useContext(LinkContext);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
-  
+  const {getLinks} = useContext(LinkContext);
+
   const userLogout = () => {
     localStorage.removeItem("@TOKEN");
     localStorage.removeItem("@USERID");
@@ -43,20 +45,15 @@ export const Header = () => {
                 <button>Pesquisar</button>
               </form>
             </div>
-            <div className="drop-down">
-              <div className="user-profile" onClick={() => setShowMenu(!showMenu)}>
-                <img src={ProfileIcon} alt="Profile icon" />
-                <p className="header-item">Bem vindo, {user.name}</p>
+            {showMenu && (
+              <div className="dropdown-menu">
+                <button className="dropdown-item" onClick={userLogout}>
+                  Sair
+                </button>
               </div>
-                {showMenu && (
-                  <div className="dropdown-menu">
-                    <button className="dropdown-item" onClick={userLogout}>
-                      Sair
-                    </button>
-                  </div>
-                )}
-              </div>
-          </div>   
+            )}
+          </div>
+        </div>
       ) : null}
 
       {location.pathname === "/" ? (

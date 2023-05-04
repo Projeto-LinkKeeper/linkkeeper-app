@@ -29,6 +29,7 @@ interface IUser {
 interface ILinkContext {
   listLinks: ILink[];
 
+  getLinks: () => Promise<ILink[] | undefined>;
   newLink: (
     formData: TLinkFormValues,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -48,7 +49,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const [filteredLinks, setFilteredLinks] = useState<ILink[]>([]);
 
   const { user } = useContext(UserContext);
-
+  const [list, setList] = useState<string[]>([])
   const [listCategories, setListCategories] = useState<string[]>([]);
 
   const getLinks = async () => {
@@ -64,9 +65,19 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       setListLinks(response.data.links);
       
       const categories = response.data.links.map((currentLink) => {
-        return currentLink.category;
+        let exist = false;
+        // return currentLink.category
+        listCategories.map((element) => {
+          if(currentLink.category === element){
+            exist = true;
+          }
+        })
+        if(exist === false){
+          setListCategories([...listCategories, currentLink.category])
+        }
       });
-      setListCategories(categories);
+      console.log(listCategories)
+     
       return response.data.links;
     } catch (error) {
       toast.error("Algo deu errado");
@@ -101,8 +112,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       setListLinks(newListLinks);
       toast.success("Link removido com sucesso!");
     } catch (error) {
-      console.log(error);
-
       toast.error("Algo deu errado!");
     }
   };
@@ -124,7 +133,9 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         }
       );
       setListLinks([...listLinks, data]);
-      setListCategories([...listCategories, data.category]);
+      if(!listCategories.includes(data.category)){
+        setListCategories([...listCategories, data.category]);
+      }
       toast.success("Link adicionado com sucesso!");
     } catch (error) {
       console.log(error);
@@ -159,7 +170,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         deleteLink,
         newLink,
         listCategories,
-
+        getLinks,
         setListLinks,
         filteredLinks,
         submit,
