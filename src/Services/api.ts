@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 
 export const api = axios.create({
     baseURL: "https://json-server-base-7f5f.onrender.com",

@@ -6,7 +6,6 @@ import { useContext, useState } from "react";
 import { StyledCardGrid, StyledUlGrid } from "./styleGrid";
 import { AddNewLinkModal } from "../../components/Modals/AddLinkModal/AddLinkModal";
 import { LinkContext } from "../../Providers/LinkContext";
-
 import { StyledFilter } from "./styleFilter";
 
 interface IModalCategory {
@@ -17,10 +16,9 @@ export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { listLinks, listCategories, deleteLink, filterLinks } =
+  const { listLinks, listCategories, deleteLink, filterLinks, getLinks } =
     useContext(LinkContext);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
   return (
     <>
       <main>
@@ -38,8 +36,10 @@ export const DashboardPage = () => {
               ))}
 
               <StyledFilter>
+                {listCategories.length>=2? <button onClick={() => getLinks()}>Todos</button>: null}
                 {listCategories.map((currentCategory) => (
                   <button
+                    key={currentCategory}
                     className="filter"
                     onClick={() => {
                       filterLinks(currentCategory),
@@ -102,7 +102,7 @@ export const DashboardPage = () => {
                 {listLinks.map((link) => {
                   const comment = link.comments;
                   return (
-                    <StyledCardGrid>
+                    <StyledCardGrid key={link.id}>
                       <img src={link.img} alt="" />
                       <div>
                         <h3>{link.title}</h3>
