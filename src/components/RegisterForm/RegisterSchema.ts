@@ -13,7 +13,6 @@ export const registerSchema = z
      .regex(
        /(?=.*?[#?!@$%^&*-])/,
        "É necessário pelo menos um caractere especial"),
-    
     confirmPassword: z.string().min(1, "Por favor, confirme sua senha"),
   })
   .refine(({ password, confirmPassword }) => confirmPassword === password, {

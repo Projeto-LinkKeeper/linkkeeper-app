@@ -43,6 +43,9 @@ export const LinkContext = createContext({} as ILinkContext);
 
 export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const [listLinks, setListLinks] = useState<ILink[]>([]);
+  const [valueOfSearch, setValueOfSearch] = useState('');
+  const [searchedLink, setSearchedLink] = useState('');
+  const [filteredLinks, setFilteredLinks] = useState<ILink[]>([]);
 
   const { user } = useContext(UserContext);
 
@@ -58,9 +61,8 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
-
       setListLinks(response.data.links);
-
+      
       const categories = response.data.links.map((currentLink) => {
         return currentLink.category;
       });
@@ -71,7 +73,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     }
   };
 
-  console.log(listCategories);
   useEffect(() => {
     getLinks();
   }, []);
@@ -133,6 +134,24 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     }
   };
 
+  const search = () => {
+    const filteredLinks = listLinks.filter((link) => (
+        valueOfSearch === '' || link.name.includes(valueOfSearch.toLowerCase()))
+        )
+        setFilteredLinks(filteredLinks)
+        setSearchedLink(valueOfSearch)
+        setFomSubmit(true)
+  }
+
+  const input = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValueOfSearch(event.target.value)
+  }
+
+  const submit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    search()
+  }
+
   return (
     <LinkContext.Provider
       value={{
@@ -142,7 +161,10 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         listCategories,
 
         setListLinks,
-        filterLinks,
+        filteredLinks,
+        submit,
+        search,
+        input
       }}
     >
       {children}

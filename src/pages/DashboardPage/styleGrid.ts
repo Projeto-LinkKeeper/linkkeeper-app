@@ -19,6 +19,7 @@ export const StyledCardGrid = styled.li`
   padding: 10px;
   border: 1px solid var(--grey-0);
   border-radius: 4px;
+  
   img {
     width: 180px;
     height: 90px;

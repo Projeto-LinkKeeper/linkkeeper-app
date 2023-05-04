@@ -4,11 +4,13 @@ import ProfileIcon from "../../assets/profile-icon.png"
 import { StyledHeader } from "./style";
 import { useContext } from 'react';
 import { UserContext } from '../../Providers/UserContext';
+import { LinkContext } from "../../Providers/LinkContext";
 import { useState } from "react";
 
 export const Header = () => {
 
-  const { user } = useContext(UserContext)
+  const { user } = useContext(UserContext);
+  const {valueOfSearch, submit, input} = useContext(LinkContext);
   const navigate = useNavigate();
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
@@ -35,10 +37,11 @@ export const Header = () => {
             <div className="header-left">
               <img src={Logotipo} alt="Logotipo" />
             </div>
-            <div></div>
             <div className="header-right">
-              <p className="header-item">Home</p>
-              <p className="header-item">Buscar</p>
+              <form onSubmit={submit}>
+                <input type="text" placeholder="Pesquisar"  value={valueOfSearch} onChange={input} />
+                <button>Pesquisar</button>
+              </form>
             </div>
             <div className="drop-down">
               <div className="user-profile" onClick={() => setShowMenu(!showMenu)}>

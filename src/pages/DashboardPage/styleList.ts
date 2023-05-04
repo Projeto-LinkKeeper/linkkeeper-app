@@ -4,7 +4,9 @@ export const StyledGridControls = styled.div`
   display: flex;
   justify-content: space-between;
   width: 90%;
+
   margin: 0 auto;
+
   color: var(--grey-0);
 
   button {
@@ -41,7 +43,7 @@ export const StyledCardList = styled.li`
   border: 1px solid var(--grey-0);
   border-radius: 4px;
   justify-content: center;
-    align-items: center;
+  align-items: center;
 
   img {
     width: 100%;
