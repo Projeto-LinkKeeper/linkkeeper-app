@@ -112,7 +112,7 @@ export const StyledCardList = styled.li`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 5px;
+  gap: 10px;
   position: relative;
 
   padding: 10px;
@@ -120,7 +120,7 @@ export const StyledCardList = styled.li`
   line-height: 110%;
   width: 100%;
   max-width: 200px;
-  height: 195px;
+  height: 210px;
   padding: 10px;
   border: 1px solid var(--grey-0);
   border-radius: 4px;

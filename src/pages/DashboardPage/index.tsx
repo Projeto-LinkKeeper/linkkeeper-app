@@ -97,7 +97,7 @@ export const DashboardPage = () => {
                   <img src={link.img} alt="" />
                   <div>
                     <h3>{link.title}</h3>
-                    <a href={link.link}>{`${link.link.substring(0,25)} ...`}</a>
+                    <a href={link.link}>{link.link}</a>
                     <h3>Comentários</h3>
                     <p>{`${comment.substring(0, 50)}...`}</p>
                     <button onClick={() => deleteLink(link.id)}>
