@@ -26,8 +26,8 @@ export const StyledCardGrid = styled.li`
   padding: 10px;
 
   line-height: 110%;
-
-  width: 200px;
+  width: 100%;
+  max-width: 200px;
   height: 195px;
   padding: 10px;
   border: 1px solid var(--grey-0);
@@ -53,8 +53,7 @@ export const StyledCardGrid = styled.li`
 
   p {
     font-size: 0.75rem;
-    width: 200px;
-
+    
     color: var(--grey-1);
   }
 
@@ -66,6 +65,9 @@ export const StyledCardGrid = styled.li`
 
     font-size: 12px;
   }
+  div{
+    width:100%;
+  }
 `;
 
 export const StyledFilter = styled.div`
@@ -73,3 +75,5 @@ export const StyledFilter = styled.div`
     background-color: red;
   }
 `;
+
+
