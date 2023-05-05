@@ -20,6 +20,7 @@ export const DashboardPage = () => {
       <main>
         <div>
           <Header />
+
             <AddNewLinkModal
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
@@ -56,17 +57,32 @@ export const DashboardPage = () => {
               </h3>
               <button onClick={() => setIsModalOpen(true)}>
                 + Adicionar link
-              </button>
-              <div className="gridControls">
-                <button onClick={() => setGrid(true)}>
-                  <img src={listIcon} alt="" />
-                </button>
 
-                <button onClick={() => setGrid(false)}>
-                  <img src={gridIcon} alt="" />
-                </button>
-              </div>
-            </StyledGridControls>
+              </button>
+            ))}
+          </StyledFilter>
+        </div>
+        <StyledGridControls>
+          <h3>
+            {selectedCategory
+              ? selectedCategory.charAt(0).toUpperCase() +
+              selectedCategory.slice(1)
+              : "Seus Links"}
+          </h3>
+          <button onClick={() => setIsModalOpen(true)}>
+            + Adicionar link
+          </button>
+          <div className="gridControls">
+            <button onClick={() => setGrid(true)}>
+              <img src={listIcon} alt="" />
+            </button>
+
+            <button onClick={() => setGrid(false)}>
+              <img src={gridIcon} alt="" />
+            </button>
+          </div>
+        </StyledGridControls>
+
 
             {grid ? (
               <div>
@@ -126,6 +142,7 @@ export const DashboardPage = () => {
               </StyledUlGrid>
             )}
           </main>
+
     </>
   );
 };

@@ -24,15 +24,15 @@ export const StyledCardGrid = styled.li`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 5px;
+  gap: 10px;
   position: relative;
 
   padding: 10px;
 
   line-height: 110%;
-
-  width: 200px;
-  height: 195px;
+  width: 100%;
+  max-width: 200px;
+  height: 210px;
   padding: 10px;
   border: 1px solid var(--grey-0);
   border-radius: 4px;
@@ -40,7 +40,7 @@ export const StyledCardGrid = styled.li`
   img {
     max-width: 100px;
     max-height: 70px;
-
+    padding-top: 25px;
     border-radius: 4px;
   }
 
@@ -57,8 +57,7 @@ export const StyledCardGrid = styled.li`
 
   p {
     font-size: 0.75rem;
-    width: 200px;
-
+    
     color: var(--grey-1);
   }
 
@@ -70,6 +69,9 @@ export const StyledCardGrid = styled.li`
 
     font-size: 12px;
   }
+  div{
+    width:100%;
+  }
 `;
 
 export const StyledFilter = styled.div`
@@ -77,3 +79,5 @@ export const StyledFilter = styled.div`
     background-color: red;
   }
 `;
+
+
