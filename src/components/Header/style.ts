@@ -48,8 +48,8 @@ export const StyledHeader = styled.header`
 
   .header-right {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    align-items: center;
 
   }
 
@@ -59,9 +59,13 @@ export const StyledHeader = styled.header`
 
   }
 
-  .drop-down {
-    position: relative;
+  .search{
+    color: var(--color-primary);
+  }
 
+  .userInfo{
+    display: flex;
+    align-items: center;
   }
 
   .user-profile {
@@ -72,33 +76,18 @@ export const StyledHeader = styled.header`
 
   }
 
-  .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    display: flex;
-    flex-direction: column;
+  .img{
+    margin-right: 10px;
 
-    background-color: #000;
-    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.2);
-
-    padding-right: 1rem;
-    padding-left: 1rem;
-    
   }
 
-  .dropdown-item {
-    margin: 0.5rem 0;
-    border: none;
+  .welcome{
+    margin-right: 10px;
+  }
 
-    background-color: transparent;
-    
-    cursor: pointer;
-
+  .close{
     color: var(--color-primary);
-
   }
-
 
     .backPageBtn,
     .logoutBtn {
@@ -123,4 +112,5 @@ export const StyledHeader = styled.header`
     display: flex;
 
   }
+  
 `;
