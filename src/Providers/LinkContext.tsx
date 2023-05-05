@@ -63,6 +63,20 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         },
       });
       setListLinks(response.data.links);
+
+      const categories = response.data.links.map((currentLink) => {
+        let exist = false;
+        // return currentLink.category
+        listCategories.map((element) => {
+          if (currentLink.category === element) {
+            exist = true;
+          }
+        });
+        if (exist === false) {
+          setListCategories([...listCategories, currentLink.category]);
+        }
+      });
+
       return response.data.links;
     } catch (error) {
       toast.error("Algo deu errado");
@@ -128,6 +142,25 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const search = () => {
+    const filteredLinks = listLinks.filter(
+      (link) =>
+        valueOfSearch === "" || link.title.includes(valueOfSearch.toLowerCase())
+    );
+    setFilteredLinks(filteredLinks);
+    setSearchedLink(valueOfSearch);
+    // setFomSubmit(true)
+  };
+
+  const input = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValueOfSearch(event.target.value);
+  };
+
+  const submit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    search();
   };
 
   return (

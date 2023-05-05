@@ -1,15 +1,19 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logotipo from "../../assets/logo.svg";
-
+import ProfileIcon from "../../assets/profile-icon.png";
 import { StyledHeader } from "./style";
 
 import { useContext } from "react";
+import { UserContext } from "../../Providers/UserContext";
+
 
 import { LinkContext } from "../../Providers/LinkContext";
 import { useState } from "react";
 
 export const Header = () => {
-  const { valueOfSearch } = useContext(LinkContext);
+
+
+  const {valueOfSearch} = useContext(LinkContext);
   const navigate = useNavigate();
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
@@ -32,28 +36,26 @@ export const Header = () => {
       ) : null}
 
       {location.pathname === "/home" ? (
-        <div className="header">
-          <div className="header-left">
-            <img src={Logotipo} alt="Logotipo" />
-          </div>
-          <div className="header-right">
-            <form>
-              <input
-                type="text"
-                placeholder="Pesquisar"
-                value={valueOfSearch}
-              />
-              <button>Pesquisar</button>
-            </form>
-          </div>
-          {showMenu && (
-            <div className="dropdown-menu">
-              <button className="dropdown-item" onClick={userLogout}>
-                Sair
-              </button>
+
+          <div className="header">
+            <div className="header-left">
+              <img src={Logotipo} alt="Logotipo" />
             </div>
-          )}
-        </div>
+            <div className="header-right">
+              <form>
+                <input type="text" placeholder="Pesquisar"  value={valueOfSearch}/>
+                <button>Pesquisar</button>
+              </form>
+            </div>
+            {showMenu && (
+              <div className="dropdown-menu">
+                <button className="dropdown-item" onClick={userLogout}>
+                  Sair
+                </button>
+              </div>
+            )}
+          </div>
+
       ) : null}
 
       {location.pathname === "/" ? (

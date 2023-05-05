@@ -20,7 +20,6 @@ export const DashboardPage = () => {
       <main>
         <div>
           <Header />
-
           <AddNewLinkModal
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
@@ -114,7 +113,9 @@ export const DashboardPage = () => {
                 const comment = link.comments;
                 return (
                   <StyledCardGrid key={link.id}>
-                    <img src={link.img} alt="" />
+                    <div>
+                      <img src={link.img} alt="" />
+                    </div>
                     <div>
                       <h3>{link.title}</h3>
                       <a href={link.link} target="_blank">
