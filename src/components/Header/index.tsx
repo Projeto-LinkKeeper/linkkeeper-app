@@ -38,9 +38,9 @@ export const Header = () => {
               <img src={Logotipo} alt="Logotipo" />
             </div>
             <div className="header-right">
-              <form>
-                <input type="text" placeholder="Pesquisar" value={searchValue} onChange={e => setSearchValue(e.target.value)}/>
-                <button type="button" className="search">Pesquisar</button>
+              <form className="form">
+                <input type="text" placeholder="Filtrar seus Links" className="input" value={searchValue} onChange={e => setSearchValue(e.target.value)}/>
+                <button type="button" className="search">Filtrar</button>
               </form>
               <div className="userInfo">
                 <img src={ProfileIcon} className="img"/>

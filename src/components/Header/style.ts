@@ -30,7 +30,7 @@ export const StyledHeader = styled.header`
 
   .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 
   padding: 1rem;
@@ -59,8 +59,27 @@ export const StyledHeader = styled.header`
 
   }
 
-  .search{
+  .form {
+    margin-right: 10px;
+  }
+
+  .input {
+    height: 40px;
+    width: 200px;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid gray;
+    color: white;
+    :focus{
+      outline: none;
+    }
+    padding: 10px;
+    margin-right: 10px;
+  }
+
+  .search {
     color: var(--color-primary);
+    
   }
 
   .userInfo{
@@ -89,24 +108,24 @@ export const StyledHeader = styled.header`
     color: var(--color-primary);
   }
 
-    .backPageBtn,
-    .logoutBtn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+  .backPageBtn,
+  .logoutBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-      height: 32px;
-      width: 79.5px;
+    height: 32px;
+    width: 79.5px;
 
-      border-radius: 4px;
-      padding: 0px 16px 0px 16px;
+    border-radius: 4px;
+    padding: 0px 16px 0px 16px;
 
-      color: var(--grey-0);
-      font-size: 10px;
+    color: var(--grey-0);
+    font-size: 10px;
 
-      background-color: var(--grey-3);
+    background-color: var(--grey-3);
 
-    }
+  }
 
   .header-right{
     display: flex;
