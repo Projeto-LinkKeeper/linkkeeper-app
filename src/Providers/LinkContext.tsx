@@ -64,20 +64,21 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       });
       setListLinks(response.data.links);
       setOriginalListLinks(response.data.links);
+      getCategories(response.data.links);
 
 
-      const categories = response.data.links.map((currentLink) => {
-        let exist = false;
-        // return currentLink.category
-        listCategories.map((element) => {
-          if (currentLink.category === element) {
-            exist = true;
-          }
-        });
-        if (exist === false) {
-          setListCategories([...listCategories, currentLink.category]);
-        }
-      });
+      // const categories = response.data.links.map((currentLink) => {
+      //   let exist = false;
+      //   // return currentLink.category
+      //   listCategories.map((element) => {
+      //     if (currentLink.category === element) {
+      //       exist = true;
+      //     }
+      //   });
+      //   if (exist === false) {
+      //     setListCategories([...listCategories, currentLink.category]);
+      //   }
+      // });
 
       return response.data.links;
     } catch (error) {
@@ -88,6 +89,18 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
   useEffect(() => {
     getLinks();
   }, []);
+
+  const newCategories = [...listCategories];
+
+  const getCategories = (links: ILink[]) => {
+    links.forEach(currentLink => {
+      if(!newCategories.includes(currentLink.category)){
+        newCategories.push(currentLink.category);
+      }
+    })
+    setListCategories(newCategories);
+    console.log(listCategories);
+  }
 
   const filterLinks = async (category: string) => {
     const listLinks = await getLinks();
@@ -163,7 +176,8 @@ useEffect(() => (
         getLinks,
         setListLinks,
         searchValue,
-        setSearchValue
+        setSearchValue,
+        filterLinks,
       }}
     >
       {children}
