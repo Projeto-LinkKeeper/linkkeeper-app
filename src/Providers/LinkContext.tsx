@@ -39,7 +39,7 @@ interface ILinkContext {
   setListLinks: React.Dispatch<React.SetStateAction<ILink[]>>;
   filterLinks: (category: string) => Promise<void>;
   searchValue: string;
-  setSearchValue: (category: string) => Promise<void>;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const LinkContext = createContext({} as ILinkContext);
@@ -51,7 +51,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const { user } = useContext(UserContext);
   const [listCategories, setListCategories] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState('');
-
+  
   const getLinks = async () => {
     const token = localStorage.getItem("@TOKEN");
     const userId = localStorage.getItem("@USERID");
@@ -145,34 +145,12 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       setLoading(false);
     }
   };
-  
-
-  // const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   console.log('mudei');
-    
-  //   const { value } = event.target;
-  //   setSearchValue(value);
-  //   setSearchValueContext(value);
-  // };
-
-//   useEffect(() => (
-//     setListLinks(listLinks.filter(link => {
-//       console.log(searchValue) 
-//       console.log(link.category)
-//       return link.category.toLowerCase().includes(searchValue.toLowerCase()) 
-//     }
-//   );
-// }, [searchValue])
-// )
 
 useEffect(() => (
   setListLinks(originalListLinks.filter(link => {
-    console.log(searchValue) 
-    console.log(link.category)
-    return link.category.toLowerCase().includes(searchValue.toLowerCase())
+    return link.title.toLowerCase().includes(searchValue.toLowerCase())
   }))
 ), [searchValue])
-
 
 
   return (
