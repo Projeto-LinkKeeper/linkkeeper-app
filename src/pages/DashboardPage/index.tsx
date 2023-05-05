@@ -8,7 +8,6 @@ import { AddNewLinkModal } from "../../components/Modals/AddLinkModal/AddLinkMod
 import { LinkContext } from "../../Providers/LinkContext";
 import { StyledFilter } from "./styleFilter";
 
-
 export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,13 +26,11 @@ export const DashboardPage = () => {
             setIsModalOpen={setIsModalOpen}
           />
           <StyledFilter>
-
             {listCategories.length >= 2 ? (
               <button onClick={() => getLinks()}>Todos</button>
             ) : null}
 
             <button onClick={() => getLinks()}>Todos</button>
-
 
             {listCategories.map((currentCategory) => (
               <button
@@ -50,15 +47,14 @@ export const DashboardPage = () => {
             ))}
           </StyledFilter>
         </div>
-        <StyledGridControls>
-          <h3>
-            {selectedCategory
-              ? selectedCategory.charAt(0).toUpperCase() +
-                selectedCategory.slice(1)
-              : "Seus Links"}
-          </h3>
-          <button onClick={() => setIsModalOpen(true)}>+ Adicionar link</button>
-        </StyledGridControls>
+
+        <h3>
+          {selectedCategory
+            ? selectedCategory.charAt(0).toUpperCase() +
+              selectedCategory.slice(1)
+            : "Seus Links"}
+        </h3>
+        <button onClick={() => setIsModalOpen(true)}>+ Adicionar link</button>
 
         <StyledGridControls>
           <h3>
@@ -82,7 +78,6 @@ export const DashboardPage = () => {
         {grid ? (
           <div>
             <StyledUlList>
-
               {listLinks.length == 0 ? (
                 <h3>Sua lista de links está vazia!</h3>
               ) : (
@@ -127,43 +122,14 @@ export const DashboardPage = () => {
                       </a>
                       <h3>Comentários</h3>
                       <p>{`${comment.substring(0, 50)}...`}</p>
-
                       <button onClick={() => deleteLink(link.id)}>
                         Remover link
                       </button>
                     </div>
-
                   </StyledCardGrid>
                 );
               })
             )}
-
-
-                  </StyledCardList>
-                );
-              })}
-            </StyledUlList>
-          </div>
-        ) : (
-          <StyledUlGrid>
-            {listLinks.map((link) => {
-              const comment = link.comments;
-              return (
-                <StyledCardGrid key={link.id}>
-                  <img src={link.img} alt="" />
-                  <div>
-                    <h3>{link.title}</h3>
-                    <a href={link.link} target="_blank">{link.link}</a>
-                    <h3>Comentários</h3>
-                    <p>{`${comment.substring(0,100)}...`}</p>
-                    <button onClick={() => deleteLink(link.id)}>
-                      Remover link
-                    </button>
-                  </div>
-                </StyledCardGrid>
-              );
-            })}
-
           </StyledUlGrid>
         )}
       </main>
