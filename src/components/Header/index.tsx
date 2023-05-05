@@ -2,11 +2,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logotipo from "../../assets/logo.svg";
 import ProfileIcon from "../../assets/profile-icon.png";
 import { StyledHeader } from "./style";
-import { useContext } from 'react';
+
+import { useContext } from "react";
+import { UserContext } from "../../Providers/UserContext";
+
+
 import { LinkContext } from "../../Providers/LinkContext";
 import { useState } from "react";
 
 export const Header = () => {
+
 
   const {valueOfSearch} = useContext(LinkContext);
   const navigate = useNavigate();
@@ -31,6 +36,7 @@ export const Header = () => {
       ) : null}
 
       {location.pathname === "/home" ? (
+
           <div className="header">
             <div className="header-left">
               <img src={Logotipo} alt="Logotipo" />
@@ -49,6 +55,7 @@ export const Header = () => {
               </div>
             )}
           </div>
+
       ) : null}
 
       {location.pathname === "/" ? (

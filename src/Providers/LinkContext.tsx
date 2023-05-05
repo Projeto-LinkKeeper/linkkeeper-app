@@ -1,4 +1,4 @@
-import  React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { api } from "../Services/api";
 import { toast } from "react-toastify";
 import { TLinkFormValues } from "../components/Modals/AddLinkModal/LinkSchema";
@@ -45,11 +45,12 @@ export const LinkContext = createContext({} as ILinkContext);
 
 export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const [listLinks, setListLinks] = useState<ILink[]>([]);
-  const [valueOfSearch, setValueOfSearch] = useState('');
+  const [valueOfSearch, setValueOfSearch] = useState("");
+  const [searchedLink, setSearchedLink] = useState("");
+  const [filteredLinks, setFilteredLinks] = useState<ILink[]>([]);
+
   const { user } = useContext(UserContext);
   const [listCategories, setListCategories] = useState<string[]>([]);
-  const [searchedLink, setSearchedLink] = useState('');
-  const [filteredLinks, setFilteredLinks] = useState<ILink[]>([]);
 
   const getLinks = async () => {
     const token = localStorage.getItem("@TOKEN");
@@ -62,20 +63,20 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         },
       });
       setListLinks(response.data.links);
-      
+
       const categories = response.data.links.map((currentLink) => {
         let exist = false;
         // return currentLink.category
         listCategories.map((element) => {
-          if(currentLink.category === element){
+          if (currentLink.category === element) {
             exist = true;
           }
-        })
-        if(exist === false){
-          setListCategories([...listCategories, currentLink.category])
+        });
+        if (exist === false) {
+          setListCategories([...listCategories, currentLink.category]);
         }
       });
-     
+
       return response.data.links;
     } catch (error) {
       toast.error("Algo deu errado");
@@ -131,7 +132,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         }
       );
       setListLinks([...listLinks, data]);
-      if(!listCategories.includes(data.category)){
+      if (!listCategories.includes(data.category)) {
         setListCategories([...listCategories, data.category]);
       }
       toast.success("Link adicionado com sucesso!");
@@ -144,22 +145,23 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
   };
 
   const search = () => {
-    const filteredLinks = listLinks.filter((link) => (
-        valueOfSearch === '' || link.title.includes(valueOfSearch.toLowerCase()))
-        )
-        setFilteredLinks(filteredLinks)
-        setSearchedLink(valueOfSearch)
-        // setFomSubmit(true)
-  }
+    const filteredLinks = listLinks.filter(
+      (link) =>
+        valueOfSearch === "" || link.title.includes(valueOfSearch.toLowerCase())
+    );
+    setFilteredLinks(filteredLinks);
+    setSearchedLink(valueOfSearch);
+    // setFomSubmit(true)
+  };
 
   const input = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValueOfSearch(event.target.value)
-  }
+    setValueOfSearch(event.target.value);
+  };
 
   const submit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    search()
-  }
+    event.preventDefault();
+    search();
+  };
 
   return (
     <LinkContext.Provider

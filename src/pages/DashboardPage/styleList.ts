@@ -41,6 +41,10 @@ export const StyledUlList = styled.ul`
 
   align-items: center;
 
+
+  h3 {
+    color: var(--grey-0);
+
   @media (max-width: 625px) {
     display: flex;
     width: 90%;
@@ -54,6 +58,7 @@ export const StyledUlList = styled.ul`
     margin: 0 auto;
     background-color: var(--grey-3);
     justify-content: center;
+
   }
 `;
 
@@ -78,10 +83,7 @@ export const StyledCardList = styled.li`
   align-items: center;
 
   img {
-    max-width: 169px;
-    max-height: 92px;
-
-    border-radius: 4px;
+    display: none;
   }
 
   h3 {
