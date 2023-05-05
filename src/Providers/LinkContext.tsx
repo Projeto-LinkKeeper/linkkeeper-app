@@ -38,19 +38,19 @@ interface ILinkContext {
   listCategories: string[];
   setListLinks: React.Dispatch<React.SetStateAction<ILink[]>>;
   filterLinks: (category: string) => Promise<void>;
-  valueOfSearch: string;
+  searchValue: string;
+  setSearchValue: (category: string) => Promise<void>;
 }
 
 export const LinkContext = createContext({} as ILinkContext);
 
 export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const [listLinks, setListLinks] = useState<ILink[]>([]);
-  const [valueOfSearch, setValueOfSearch] = useState("");
-  const [searchedLink, setSearchedLink] = useState("");
-  const [filteredLinks, setFilteredLinks] = useState<ILink[]>([]);
 
+  const [originalListLinks, setOriginalListLinks] = useState<ILink[]>([]);
   const { user } = useContext(UserContext);
   const [listCategories, setListCategories] = useState<string[]>([]);
+  const [searchValue, setSearchValue] = useState('');
 
   const getLinks = async () => {
     const token = localStorage.getItem("@TOKEN");
@@ -63,6 +63,8 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         },
       });
       setListLinks(response.data.links);
+      setOriginalListLinks(response.data.links);
+
 
       const categories = response.data.links.map((currentLink) => {
         let exist = false;
@@ -143,25 +145,35 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       setLoading(false);
     }
   };
+  
 
-  const search = () => {
-    const filteredLinks = listLinks.filter(
-      (link) =>
-        valueOfSearch === "" || link.title.includes(valueOfSearch.toLowerCase())
-    );
-    setFilteredLinks(filteredLinks);
-    setSearchedLink(valueOfSearch);
-    // setFomSubmit(true)
-  };
+  // const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   console.log('mudei');
+    
+  //   const { value } = event.target;
+  //   setSearchValue(value);
+  //   setSearchValueContext(value);
+  // };
 
-  const input = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValueOfSearch(event.target.value);
-  };
+//   useEffect(() => (
+//     setListLinks(listLinks.filter(link => {
+//       console.log(searchValue) 
+//       console.log(link.category)
+//       return link.category.toLowerCase().includes(searchValue.toLowerCase()) 
+//     }
+//   );
+// }, [searchValue])
+// )
 
-  const submit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    search();
-  };
+useEffect(() => (
+  setListLinks(originalListLinks.filter(link => {
+    console.log(searchValue) 
+    console.log(link.category)
+    return link.category.toLowerCase().includes(searchValue.toLowerCase())
+  }))
+), [searchValue])
+
+
 
   return (
     <LinkContext.Provider
@@ -172,8 +184,8 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         listCategories,
         getLinks,
         setListLinks,
-        filterLinks,
-        valueOfSearch,
+        searchValue,
+        setSearchValue
       }}
     >
       {children}

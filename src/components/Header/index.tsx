@@ -9,11 +9,14 @@ import { UserContext } from "../../Providers/UserContext";
 
 import { LinkContext } from "../../Providers/LinkContext";
 import { useState } from "react";
+import { UserContext } from "../../Providers/UserContext";
 
 export const Header = () => {
 
 
-  const {valueOfSearch} = useContext(LinkContext);
+  const {searchValue, setSearchValue} = useContext(LinkContext);
+  const { user } = useContext(UserContext);
+
   const navigate = useNavigate();
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
@@ -42,10 +45,17 @@ export const Header = () => {
               <img src={Logotipo} alt="Logotipo" />
             </div>
             <div className="header-right">
-              <form>
-                <input type="text" placeholder="Pesquisar"  value={valueOfSearch}/>
-                <button>Pesquisar</button>
+              <form className="form">
+                <input type="text" placeholder="Filtrar seus Links" className="input" value={searchValue} onChange={e => setSearchValue(e.target.value)}/>
+                <button type="button" className="search">Filtrar</button>
               </form>
+              <div className="userInfo">
+                <img src={ProfileIcon} className="img"/>
+                <p className="welcome">Bem vindo, {user.name}</p>
+                <button className="close" onClick={userLogout}>
+                  Sair
+                </button>
+              </div>
             </div>
             {showMenu && (
               <div className="dropdown-menu">
