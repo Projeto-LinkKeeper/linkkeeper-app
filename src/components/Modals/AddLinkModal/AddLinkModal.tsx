@@ -21,6 +21,7 @@ export const AddNewLinkModal = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<TLinkFormValues>({
     resolver: zodResolver(LinkSchema),
@@ -31,6 +32,7 @@ export const AddNewLinkModal = ({
 
   const submit: SubmitHandler<TLinkFormValues> = (formData) => {
     newLink(formData, setLoading);
+    formData ? reset() : null;
     setIsModalOpen(!isModalOpen);
   };
 

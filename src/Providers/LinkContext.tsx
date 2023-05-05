@@ -1,4 +1,4 @@
-import  React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { api } from "../Services/api";
 import { toast } from "react-toastify";
 import { TLinkFormValues } from "../components/Modals/AddLinkModal/LinkSchema";
@@ -46,11 +46,12 @@ export const LinkContext = createContext({} as ILinkContext);
 
 export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const [listLinks, setListLinks] = useState<ILink[]>([]);
+
   const [originalListLinks, setOriginalListLinks] = useState<ILink[]>([]);
   const { user } = useContext(UserContext);
   const [listCategories, setListCategories] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState('');
-  
+
   const getLinks = async () => {
     const token = localStorage.getItem("@TOKEN");
     const userId = localStorage.getItem("@USERID");
@@ -64,19 +65,20 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       setListLinks(response.data.links);
       setOriginalListLinks(response.data.links);
 
+
       const categories = response.data.links.map((currentLink) => {
         let exist = false;
         // return currentLink.category
         listCategories.map((element) => {
-          if(currentLink.category === element){
+          if (currentLink.category === element) {
             exist = true;
           }
-        })
-        if(exist === false){
-          setListCategories([...listCategories, currentLink.category])
+        });
+        if (exist === false) {
+          setListCategories([...listCategories, currentLink.category]);
         }
       });
-     
+
       return response.data.links;
     } catch (error) {
       toast.error("Algo deu errado");
@@ -132,7 +134,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
         }
       );
       setListLinks([...listLinks, data]);
-      if(!listCategories.includes(data.category)){
+      if (!listCategories.includes(data.category)) {
         setListCategories([...listCategories, data.category]);
       }
       toast.success("Link adicionado com sucesso!");
@@ -143,7 +145,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       setLoading(false);
     }
   };
-
   
 
   // const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -171,6 +172,7 @@ useEffect(() => (
     return link.category.toLowerCase().includes(searchValue.toLowerCase())
   }))
 ), [searchValue])
+
 
 
   return (
