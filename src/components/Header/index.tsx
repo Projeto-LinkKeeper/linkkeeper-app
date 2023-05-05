@@ -1,18 +1,18 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logotipo from "../../assets/logo.svg";
+
 import { StyledHeader } from "./style";
+
 import { useContext } from "react";
-import { UserContext } from "../../Providers/UserContext";
+
 import { LinkContext } from "../../Providers/LinkContext";
 import { useState } from "react";
 
 export const Header = () => {
-  const { user } = useContext(UserContext);
-  const { valueOfSearch, submit, input } = useContext(LinkContext);
+  const { valueOfSearch } = useContext(LinkContext);
   const navigate = useNavigate();
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
-  const { getLinks } = useContext(LinkContext);
 
   const userLogout = () => {
     localStorage.removeItem("@TOKEN");
@@ -37,12 +37,11 @@ export const Header = () => {
             <img src={Logotipo} alt="Logotipo" />
           </div>
           <div className="header-right">
-            <form onSubmit={submit}>
+            <form>
               <input
                 type="text"
                 placeholder="Pesquisar"
                 value={valueOfSearch}
-                onChange={input}
               />
               <button>Pesquisar</button>
             </form>
