@@ -99,7 +99,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       }
     })
     setListCategories(newCategories);
-    console.log(listCategories);
+    
   }
 
   const filterLinks = async (category: string) => {
