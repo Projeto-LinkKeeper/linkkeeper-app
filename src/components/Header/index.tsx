@@ -1,13 +1,14 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logotipo from "../../assets/logo.svg";
-import ProfileIcon from "../../assets/profile-icon.png";
+
 import { StyledHeader } from "./style";
 
 import { useContext } from "react";
-import { UserContext } from "../../Providers/UserContext";
 
 import { LinkContext } from "../../Providers/LinkContext";
 import { useState } from "react";
+import { UserContext } from "../../Providers/UserContext";
+import { Input } from "../Input";
 
 export const Header = () => {
   const { searchValue, setSearchValue } = useContext(LinkContext);
@@ -41,10 +42,11 @@ export const Header = () => {
           </div>
           <div className="header-right">
             <form className="form">
-              <input
+              <Input
                 type="text"
                 placeholder="Filtrar seus Links"
-                className="input"
+                className="filter__input"
+                id="filter"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
               />
@@ -53,8 +55,9 @@ export const Header = () => {
               </button>
             </form>
             <div className="userInfo">
-              <img src={ProfileIcon} className="img" />
-              <p className="welcome">Bem vindo, {user?.name}</p>
+              <p className="welcome">
+                Bem vindo, <span>{user?.name}</span>
+              </p>
               <button className="close" onClick={userLogout}>
                 Sair
               </button>

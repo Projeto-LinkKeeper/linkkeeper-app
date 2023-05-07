@@ -64,19 +64,20 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       });
       setListLinks(response.data.links);
       setOriginalListLinks(response.data.links);
+      getCategories(response.data.links);
 
-      const categories = response.data.links.map((currentLink) => {
-        let exist = false;
-        // return currentLink.category
-        listCategories.map((element) => {
-          if (currentLink.category === element) {
-            exist = true;
-          }
-        });
-        if (exist === false) {
-          setListCategories([...listCategories, currentLink.category]);
-        }
-      });
+      // const categories = response.data.links.map((currentLink) => {
+      //   let exist = false;
+      //   // return currentLink.category
+      //   listCategories.map((element) => {
+      //     if (currentLink.category === element) {
+      //       exist = true;
+      //     }
+      //   });
+      //   if (exist === false) {
+      //     setListCategories([...listCategories, currentLink.category]);
+      //   }
+      // });
 
       return response.data.links;
     } catch (error) {
@@ -87,6 +88,17 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
   useEffect(() => {
     getLinks();
   }, []);
+
+  const newCategories = [...listCategories];
+
+  const getCategories = (links: ILink[]) => {
+    links.forEach((currentLink) => {
+      if (!newCategories.includes(currentLink.category)) {
+        newCategories.push(currentLink.category);
+      }
+    });
+    setListCategories(newCategories);
+  };
 
   const filterLinks = async (category: string) => {
     const listLinks = await getLinks();
@@ -149,11 +161,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     () =>
       setListLinks(
         originalListLinks.filter((link) => {
-          console.log(searchValue);
-          console.log(link.category);
-          return link.category
-            .toLowerCase()
-            .includes(searchValue.toLowerCase());
+          return link.title.toLowerCase().includes(searchValue.toLowerCase());
         })
       ),
     [searchValue]
@@ -164,13 +172,13 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       value={{
         listLinks,
         deleteLink,
-        filterLinks,
         newLink,
         listCategories,
         getLinks,
         setListLinks,
         searchValue,
         setSearchValue,
+        filterLinks,
       }}
     >
       {children}
