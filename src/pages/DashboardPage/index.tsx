@@ -16,7 +16,7 @@ export const DashboardPage = () => {
   const { listLinks, listCategories, deleteLink, filterLinks, getLinks } =
     useContext(LinkContext);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  
+
   return (
     <>
       <main>
@@ -27,10 +27,16 @@ export const DashboardPage = () => {
             setIsModalOpen={setIsModalOpen}
           />
           <StyledFilter>
-            <button onClick={() => {
-              getLinks()
-              setSelectedCategory(null)}}
-            >Todos</button>
+
+            <button
+              onClick={() => {
+                getLinks();
+                setSelectedCategory(null);
+              }}
+            >
+              Todos
+            </button>
+
             {listCategories.map((currentCategory) => (
               <button
                 key={currentCategory}
@@ -101,9 +107,13 @@ export const DashboardPage = () => {
                   <img src={link.img} alt="" />
                   <div>
                     <h3>{link.title}</h3>
-                    <a href={link.link} target="_blank">{link.link}</a>
+
+                    <a href={link.link} target="_blank">
+                      {link.link}
+                    </a>
                     <h3>Comentários</h3>
-                    <p>{`${comment.substring(0,100)}...`}</p>
+                    <p>{`${comment.substring(0, 100)}...`}</p>
+
                     <button onClick={() => deleteLink(link.id)}>
                       Remover link
                     </button>
