@@ -1,12 +1,12 @@
-import { LoginForm } from "../../components/LoginForm";
 import { Header } from "../../components/Header";
+import { RegisterForm } from "../../components/RegisterForm";
 
-export const LoginPage = () => {
+export const RegisterPage = () => {
   return (
     <main>
       <div>
         <Header />
-        <LoginForm />
+        <RegisterForm />
       </div>
     </main>
   );

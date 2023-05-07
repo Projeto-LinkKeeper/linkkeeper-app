@@ -44,7 +44,7 @@ export const StyledHeader = styled.header`
     padding: 1rem 0;
 
     background-color: rgb(5, 5, 5);
-    color: #ffffff;
+    color: var(--grey-0);
   }
 
   .header-left {
