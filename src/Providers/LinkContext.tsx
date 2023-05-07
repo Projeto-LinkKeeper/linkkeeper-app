@@ -53,7 +53,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
 
   const [searchValue, setSearchValue] = useState("");
 
-
   const getLinks = async () => {
     const token = localStorage.getItem("@TOKEN");
     const userId = localStorage.getItem("@USERID");
@@ -68,19 +67,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       setOriginalListLinks(response.data.links);
       getCategories(response.data.links);
 
-      // const categories = response.data.links.map((currentLink) => {
-      //   let exist = false;
-      //   // return currentLink.category
-      //   listCategories.map((element) => {
-      //     if (currentLink.category === element) {
-      //       exist = true;
-      //     }
-      //   });
-      //   if (exist === false) {
-      //     setListCategories([...listCategories, currentLink.category]);
-      //   }
-      // });
-
       return response.data.links;
     } catch (error) {
       toast.error("Algo deu errado");
@@ -94,7 +80,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const newCategories = [...listCategories];
 
   const getCategories = (links: ILink[]) => {
-
     links.forEach((currentLink) => {
       if (!newCategories.includes(currentLink.category)) {
         newCategories.push(currentLink.category);
@@ -102,7 +87,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     });
     setListCategories(newCategories);
   };
-
 
   const filterLinks = async (category: string) => {
     const listLinks = await getLinks();
@@ -161,7 +145,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     }
   };
 
-
   useEffect(
     () =>
       setListLinks(
@@ -171,7 +154,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       ),
     [searchValue]
   );
-
 
   return (
     <LinkContext.Provider
