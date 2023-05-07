@@ -29,16 +29,16 @@ export const LoginForm = () => {
       <Input
         label="Email"
         type="email"
-        id="login"
+        id="email"
         placeholder="Digite seu email"
         {...register("email")}
         error={errors.email?.message}
         disabled={loading}
       />
       <Input
-        label="Password"
+        label="Senha"
         type="password"
-        id="senha"
+        id="password"
         placeholder="Digite sua senha"
         error={errors.password?.message}
         {...register("password")}

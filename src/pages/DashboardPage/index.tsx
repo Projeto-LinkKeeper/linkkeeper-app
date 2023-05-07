@@ -1,125 +1,129 @@
 import { Header } from "../../components/Header";
 import listIcon from "../../assets/listIcon.svg";
 import gridIcon from "../../assets/gridIcon.svg";
-import Image from "../../assets/image 1.svg";
 import { StyledCardList, StyledGridControls, StyledUlList } from "./styleList";
 import { useContext, useState } from "react";
 import { StyledCardGrid, StyledUlGrid } from "./styleGrid";
 import { AddNewLinkModal } from "../../components/Modals/AddLinkModal/AddLinkModal";
 import { LinkContext } from "../../Providers/LinkContext";
+import { StyledFilter } from "./styleFilter";
+
 
 export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
-  const { setIsModalOpen } = useContext(LinkContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { listLinks, listCategories, deleteLink, filterLinks, getLinks } =
+    useContext(LinkContext);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   return (
     <>
       <main>
         <div>
           <Header />
-          <main>
-            <StyledGridControls>
-              <h3>Vídeos</h3>
-              <button onClick={() => setIsModalOpen(true)}>add link</button>
-              <div className="gridControls">
-                <button onClick={() => setGrid(true)}>
-                  <img src={listIcon} alt="" />
-                </button>
+          <AddNewLinkModal
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+          />
+          <StyledFilter>
 
-                <button onClick={() => setGrid(false)}>
-                  <img src={gridIcon} alt="" />
-                </button>
-              </div>
-            </StyledGridControls>
+            <button
+              onClick={() => {
+                getLinks();
+                setSelectedCategory(null);
+              }}
+            >
+              Todos
+            </button>
 
-            {grid ? (
-              <div>
-                <StyledUlList>
-                  <StyledCardList>
-                    <img src={Image} alt="" />
-                    <div>
-                      <h3>
-                        Clonando a interface do Twitter: Aula 1 - Projeto e
-                        Ferramentas [HTML, CSS e JS]
-                      </h3>
-                      <h3>Comentários</h3>
-                      <p>
-                        -Ferramentas úteis em 4:26 - Diferenças de HTML e JS
-                        -Clonagem de rep em 3:01
-                      </p>
-                      <button>Remover link</button>
-                    </div>
-                  </StyledCardList>
-                  <StyledCardList>
-                    <img src={Image} alt="" />
-                    <div>
-                      <h3>
-                        Clonando a interface do Twitter: Aula 1 - Projeto e
-                        Ferramentas [HTML, CSS e JS]
-                      </h3>
-                      <h3>Comentários</h3>
-                      <p>
-                        -Ferramentas úteis em 4:26 - Diferenças de HTML e JS
-                        -Clonagem de rep em 3:01
-                      </p>
-                      <button>Remover link</button>
-                    </div>
-                  </StyledCardList>
-                  <StyledCardList>
-                    <img src={Image} alt="" />
-                    <div>
-                      <h3>
-                        Clonando a interface do Twitter: Aula 1 - Projeto e
-                        Ferramentas [HTML, CSS e JS]
-                      </h3>
-                      <h3>Comentários</h3>
-                      <p>
-                        -Ferramentas úteis em 4:26 - Diferenças de HTML e JS
-                        -Clonagem de rep em 3:01
-                      </p>
-                      <button>Remover link</button>
-                    </div>
-                  </StyledCardList>
-                </StyledUlList>
-              </div>
-            ) : (
-              <StyledUlGrid>
-                <StyledCardGrid>
-                  <img src={Image} alt="" />
-                  <div>
-                    <h3>
-                      Clonando a interface do Twitter: Aula 1 - Projeto e
-                      Ferramentas [HTML, CSS e JS]
-                    </h3>
-                    <button>Remover link</button>
-                  </div>
-                </StyledCardGrid>
-                <StyledCardGrid>
-                  <img src={Image} alt="" />
-                  <div>
-                    <h3>
-                      Clonando a interface do Twitter: Aula 1 - Projeto e
-                      Ferramentas [HTML, CSS e JS]
-                    </h3>
-                    <button>Remover link</button>
-                  </div>
-                </StyledCardGrid>
-                <StyledCardGrid>
-                  <img src={Image} alt="" />
-                  <div>
-                    <h3>
-                      Clonando a interface do Twitter: Aula 1 - Projeto e
-                      Ferramentas [HTML, CSS e JS]
-                    </h3>
-                    <button>Remover link</button>
-                  </div>
-                </StyledCardGrid>
-              </StyledUlGrid>
-            )}
-          </main>
+            {listCategories.map((currentCategory) => (
+              <button
+                key={currentCategory}
+                className="filter"
+                onClick={() => {
+                  filterLinks(currentCategory),
+                    setSelectedCategory(currentCategory);
+                }}
+              >
+                {currentCategory.charAt(0).toUpperCase() +
+                  currentCategory.slice(1)}
+              </button>
+            ))}
+          </StyledFilter>
         </div>
+        <StyledGridControls>
+          <h3>
+            {selectedCategory
+              ? selectedCategory.charAt(0).toUpperCase() +
+              selectedCategory.slice(1)
+              : "Seus Links"}
+          </h3>
+          <button onClick={() => setIsModalOpen(true)}>
+            + Adicionar link
+          </button>
+          <div className="gridControls">
+            <button onClick={() => setGrid(true)}>
+              <img src={listIcon} alt="" />
+            </button>
+
+            <button onClick={() => setGrid(false)}>
+              <img src={gridIcon} alt="" />
+            </button>
+          </div>
+        </StyledGridControls>
+
+        {grid ? (
+          <div>
+            <StyledUlList>
+              {listLinks.map((link) => {
+                const comment = link.comments;
+                return (
+                  <StyledCardList key={link.id}>
+                    <div>
+                      <img src={link.img} alt="" />
+                    </div>
+                    <div>
+                      <h3>{link.title}</h3>
+                      <a href={link.link}>{link.link}</a>
+                      <h3>Comentários:</h3>
+                      <p>{comment}</p>
+                      <button onClick={() => deleteLink(link.id)}>
+                        Remover link
+                      </button>
+                    </div>
+
+                  </StyledCardList>
+                );
+              })}
+            </StyledUlList>
+          </div>
+        ) : (
+          <StyledUlGrid>
+            {listLinks.map((link) => {
+              const comment = link.comments;
+              return (
+                <StyledCardGrid key={link.id}>
+                  <img src={link.img} alt="" />
+                  <div>
+                    <h3>{link.title}</h3>
+
+                    <a href={link.link} target="_blank">
+                      {link.link}
+                    </a>
+                    <h3>Comentários</h3>
+                    <p>{`${comment.substring(0, 100)}...`}</p>
+
+                    <button onClick={() => deleteLink(link.id)}>
+                      Remover link
+                    </button>
+                  </div>
+                </StyledCardGrid>
+              );
+            })}
+          </StyledUlGrid>
+        )}
       </main>
-      <AddNewLinkModal />
     </>
   );
 };
