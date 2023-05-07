@@ -8,6 +8,7 @@ import { AddNewLinkModal } from "../../components/Modals/AddLinkModal/AddLinkMod
 import { LinkContext } from "../../Providers/LinkContext";
 import { StyledFilter } from "./styleFilter";
 
+
 export const DashboardPage = () => {
   const [grid, setGrid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,6 +27,7 @@ export const DashboardPage = () => {
             setIsModalOpen={setIsModalOpen}
           />
           <StyledFilter>
+
             <button
               onClick={() => {
                 getLinks();
@@ -34,6 +36,7 @@ export const DashboardPage = () => {
             >
               Todos
             </button>
+
             {listCategories.map((currentCategory) => (
               <button
                 key={currentCategory}
@@ -53,10 +56,12 @@ export const DashboardPage = () => {
           <h3>
             {selectedCategory
               ? selectedCategory.charAt(0).toUpperCase() +
-                selectedCategory.slice(1)
+              selectedCategory.slice(1)
               : "Seus Links"}
           </h3>
-          <button onClick={() => setIsModalOpen(true)}>+ Adicionar link</button>
+          <button onClick={() => setIsModalOpen(true)}>
+            + Adicionar link
+          </button>
           <div className="gridControls">
             <button onClick={() => setGrid(true)}>
               <img src={listIcon} alt="" />
@@ -87,6 +92,7 @@ export const DashboardPage = () => {
                         Remover link
                       </button>
                     </div>
+
                   </StyledCardList>
                 );
               })}
@@ -101,11 +107,13 @@ export const DashboardPage = () => {
                   <img src={link.img} alt="" />
                   <div>
                     <h3>{link.title}</h3>
+
                     <a href={link.link} target="_blank">
                       {link.link}
                     </a>
                     <h3>Comentários</h3>
                     <p>{`${comment.substring(0, 100)}...`}</p>
+
                     <button onClick={() => deleteLink(link.id)}>
                       Remover link
                     </button>

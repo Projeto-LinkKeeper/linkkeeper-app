@@ -2,8 +2,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logotipo from "../../assets/logo.svg";
 
 import { StyledHeader } from "./style";
-
 import { useContext } from "react";
+
 
 import { LinkContext } from "../../Providers/LinkContext";
 import { useState } from "react";
@@ -12,6 +12,7 @@ import { Input } from "../Input";
 
 export const Header = () => {
   const { searchValue, setSearchValue } = useContext(LinkContext);
+
   const { user } = useContext(UserContext);
 
   const navigate = useNavigate();

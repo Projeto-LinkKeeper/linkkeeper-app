@@ -90,6 +90,7 @@ export const StyledHeader = styled.header`
   .userInfo {
     display: flex;
     align-items: center;
+
   }
 
   .user-profile {

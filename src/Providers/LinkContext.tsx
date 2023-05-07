@@ -50,7 +50,9 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const [originalListLinks, setOriginalListLinks] = useState<ILink[]>([]);
   const { user } = useContext(UserContext);
   const [listCategories, setListCategories] = useState<string[]>([]);
+
   const [searchValue, setSearchValue] = useState("");
+
 
   const getLinks = async () => {
     const token = localStorage.getItem("@TOKEN");
@@ -92,6 +94,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const newCategories = [...listCategories];
 
   const getCategories = (links: ILink[]) => {
+
     links.forEach((currentLink) => {
       if (!newCategories.includes(currentLink.category)) {
         newCategories.push(currentLink.category);
@@ -99,6 +102,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     });
     setListCategories(newCategories);
   };
+
 
   const filterLinks = async (category: string) => {
     const listLinks = await getLinks();
@@ -157,6 +161,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
     }
   };
 
+
   useEffect(
     () =>
       setListLinks(
@@ -166,6 +171,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       ),
     [searchValue]
   );
+
 
   return (
     <LinkContext.Provider
