@@ -25,10 +25,6 @@ export const DashboardPage = () => {
             setIsModalOpen={setIsModalOpen}
           />
           <StyledFilter>
-            {listCategories.length >= 2 ? (
-              <button onClick={() => getLinks()}>Todos</button>
-            ) : null}
-
             <button onClick={() => getLinks()}>Todos</button>
 
             {listCategories.map((currentCategory) => (

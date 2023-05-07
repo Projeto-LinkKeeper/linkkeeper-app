@@ -39,7 +39,7 @@ interface ILinkContext {
   setListLinks: React.Dispatch<React.SetStateAction<ILink[]>>;
   filterLinks: (category: string) => Promise<void>;
   searchValue: string;
-  setSearchValue: (category: string) => Promise<void>;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const LinkContext = createContext({} as ILinkContext);
@@ -50,7 +50,7 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
   const [originalListLinks, setOriginalListLinks] = useState<ILink[]>([]);
   const { user } = useContext(UserContext);
   const [listCategories, setListCategories] = useState<string[]>([]);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
 
   const getLinks = async () => {
     const token = localStorage.getItem("@TOKEN");
@@ -64,7 +64,6 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       });
       setListLinks(response.data.links);
       setOriginalListLinks(response.data.links);
-
 
       const categories = response.data.links.map((currentLink) => {
         let exist = false;
@@ -145,47 +144,33 @@ export const LinkProvider = ({ children }: ILinkProviderProps) => {
       setLoading(false);
     }
   };
-  
 
-  // const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   console.log('mudei');
-    
-  //   const { value } = event.target;
-  //   setSearchValue(value);
-  //   setSearchValueContext(value);
-  // };
-
-//   useEffect(() => (
-//     setListLinks(listLinks.filter(link => {
-//       console.log(searchValue) 
-//       console.log(link.category)
-//       return link.category.toLowerCase().includes(searchValue.toLowerCase()) 
-//     }
-//   );
-// }, [searchValue])
-// )
-
-useEffect(() => (
-  setListLinks(originalListLinks.filter(link => {
-    console.log(searchValue) 
-    console.log(link.category)
-    return link.category.toLowerCase().includes(searchValue.toLowerCase())
-  }))
-), [searchValue])
-
-
+  useEffect(
+    () =>
+      setListLinks(
+        originalListLinks.filter((link) => {
+          console.log(searchValue);
+          console.log(link.category);
+          return link.category
+            .toLowerCase()
+            .includes(searchValue.toLowerCase());
+        })
+      ),
+    [searchValue]
+  );
 
   return (
     <LinkContext.Provider
       value={{
         listLinks,
         deleteLink,
+        filterLinks,
         newLink,
         listCategories,
         getLinks,
         setListLinks,
         searchValue,
-        setSearchValue
+        setSearchValue,
       }}
     >
       {children}
